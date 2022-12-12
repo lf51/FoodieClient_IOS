@@ -7,10 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3FB251972947737C00BF005D /* MyFoodiePackage in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB251962947737C00BF005D /* MyFoodiePackage */; };
 		3FB42F172940AC79000DD169 /* FoodieClientIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F162940AC79000DD169 /* FoodieClientIOSApp.swift */; };
 		3FB42F192940AC79000DD169 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F182940AC79000DD169 /* ContentView.swift */; };
 		3FB42F1B2940AC7A000DD169 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FB42F1A2940AC7A000DD169 /* Assets.xcassets */; };
 		3FB42F1F2940AC7A000DD169 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FB42F1E2940AC7A000DD169 /* Preview Assets.xcassets */; };
+		3FB42F262940D1E1000DD169 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F252940D1E1000DD169 /* MainView.swift */; };
+		3FB42F292940D415000DD169 /* MyPackView_L0 in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB42F282940D415000DD169 /* MyPackView_L0 */; };
+		3FB42F322940E698000DD169 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB42F312940E698000DD169 /* CodeScanner */; };
+		3FB42F342940E7CB000DD169 /* QRScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F332940E7CB000DD169 /* QRScanView.swift */; };
+		3FD854042941EFF700F7CC98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */; };
+		3FD854072941F0A700F7CC98 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD854062941F0A700F7CC98 /* FirebaseAuth */; };
+		3FD854092941F0A700F7CC98 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD854082941F0A700F7CC98 /* FirebaseDynamicLinks */; };
+		3FD8540B2941F0A700F7CC98 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD8540A2941F0A700F7CC98 /* FirebaseFirestore */; };
+		3FD8540D2941F0A700F7CC98 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD8540C2941F0A700F7CC98 /* FirebaseStorage */; };
+		3FD8540F2941FAE900F7CC98 /* ClientVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD8540E2941FAE900F7CC98 /* ClientVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +31,10 @@
 		3FB42F1A2940AC7A000DD169 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3FB42F1C2940AC7A000DD169 /* FoodieClientIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoodieClientIOS.entitlements; sourceTree = "<group>"; };
 		3FB42F1E2940AC7A000DD169 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3FB42F252940D1E1000DD169 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		3FB42F332940E7CB000DD169 /* QRScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScanView.swift; sourceTree = "<group>"; };
+		3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3FD8540E2941FAE900F7CC98 /* ClientVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +42,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FB42F292940D415000DD169 /* MyPackView_L0 in Frameworks */,
+				3FB42F322940E698000DD169 /* CodeScanner in Frameworks */,
+				3FD854072941F0A700F7CC98 /* FirebaseAuth in Frameworks */,
+				3FD8540D2941F0A700F7CC98 /* FirebaseStorage in Frameworks */,
+				3FD854092941F0A700F7CC98 /* FirebaseDynamicLinks in Frameworks */,
+				3FB251972947737C00BF005D /* MyFoodiePackage in Frameworks */,
+				3FD8540B2941F0A700F7CC98 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,8 +76,12 @@
 			children = (
 				3FB42F162940AC79000DD169 /* FoodieClientIOSApp.swift */,
 				3FB42F182940AC79000DD169 /* ContentView.swift */,
+				3FB42F252940D1E1000DD169 /* MainView.swift */,
+				3FB42F332940E7CB000DD169 /* QRScanView.swift */,
+				3FD8540E2941FAE900F7CC98 /* ClientVM.swift */,
 				3FB42F1A2940AC7A000DD169 /* Assets.xcassets */,
 				3FB42F1C2940AC7A000DD169 /* FoodieClientIOS.entitlements */,
+				3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */,
 				3FB42F1D2940AC7A000DD169 /* Preview Content */,
 			);
 			path = FoodieClientIOS;
@@ -85,6 +111,15 @@
 			dependencies = (
 			);
 			name = FoodieClientIOS;
+			packageProductDependencies = (
+				3FB42F282940D415000DD169 /* MyPackView_L0 */,
+				3FB42F312940E698000DD169 /* CodeScanner */,
+				3FD854062941F0A700F7CC98 /* FirebaseAuth */,
+				3FD854082941F0A700F7CC98 /* FirebaseDynamicLinks */,
+				3FD8540A2941F0A700F7CC98 /* FirebaseFirestore */,
+				3FD8540C2941F0A700F7CC98 /* FirebaseStorage */,
+				3FB251962947737C00BF005D /* MyFoodiePackage */,
+			);
 			productName = FoodieClientIOS;
 			productReference = 3FB42F132940AC79000DD169 /* FoodieClientIOS.app */;
 			productType = "com.apple.product-type.application";
@@ -113,6 +148,12 @@
 				Base,
 			);
 			mainGroup = 3FB42F0A2940AC79000DD169;
+			packageReferences = (
+				3FB42F272940D415000DD169 /* XCRemoteSwiftPackageReference "MyPackView_L0" */,
+				3FB42F302940E698000DD169 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				3FD854052941F0A700F7CC98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3FB251952947737C00BF005D /* XCRemoteSwiftPackageReference "MyFoodiePackage_IOS" */,
+			);
 			productRefGroup = 3FB42F142940AC79000DD169 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -129,6 +170,7 @@
 			files = (
 				3FB42F1F2940AC7A000DD169 /* Preview Assets.xcassets in Resources */,
 				3FB42F1B2940AC7A000DD169 /* Assets.xcassets in Resources */,
+				3FD854042941EFF700F7CC98 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +182,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FB42F192940AC79000DD169 /* ContentView.swift in Sources */,
+				3FB42F262940D1E1000DD169 /* MainView.swift in Sources */,
+				3FB42F342940E7CB000DD169 /* QRScanView.swift in Sources */,
 				3FB42F172940AC79000DD169 /* FoodieClientIOSApp.swift in Sources */,
+				3FD8540F2941FAE900F7CC98 /* ClientVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +314,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need to scan Qr code";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -277,8 +323,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -307,6 +353,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need to scan Qr code";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -315,8 +362,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -354,6 +401,79 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3FB251952947737C00BF005D /* XCRemoteSwiftPackageReference "MyFoodiePackage_IOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lf51/MyFoodiePackage_IOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
+		};
+		3FB42F272940D415000DD169 /* XCRemoteSwiftPackageReference "MyPackView_L0" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lf51/MyPackView_L0.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.1;
+			};
+		};
+		3FB42F302940E698000DD169 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		3FD854052941F0A700F7CC98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3FB251962947737C00BF005D /* MyFoodiePackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FB251952947737C00BF005D /* XCRemoteSwiftPackageReference "MyFoodiePackage_IOS" */;
+			productName = MyFoodiePackage;
+		};
+		3FB42F282940D415000DD169 /* MyPackView_L0 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FB42F272940D415000DD169 /* XCRemoteSwiftPackageReference "MyPackView_L0" */;
+			productName = MyPackView_L0;
+		};
+		3FB42F312940E698000DD169 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FB42F302940E698000DD169 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+		3FD854062941F0A700F7CC98 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FD854052941F0A700F7CC98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		3FD854082941F0A700F7CC98 /* FirebaseDynamicLinks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FD854052941F0A700F7CC98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDynamicLinks;
+		};
+		3FD8540A2941F0A700F7CC98 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FD854052941F0A700F7CC98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		3FD8540C2941F0A700F7CC98 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FD854052941F0A700F7CC98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3FB42F0B2940AC79000DD169 /* Project object */;
 }

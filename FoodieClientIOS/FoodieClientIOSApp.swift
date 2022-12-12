@@ -6,12 +6,19 @@
 //
 
 import SwiftUI
+import Firebase
 
 @main
 struct FoodieClientIOSApp: App {
+    
+    init() {
+        FirebaseApp.configure()
+        // disattivare raccolta dati
+    }
     var body: some Scene {
         WindowGroup {
-            ContentView()
+           // ContentView()
+            MainView()
         }
     }
 }
