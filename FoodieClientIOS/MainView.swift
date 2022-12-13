@@ -13,6 +13,8 @@ import MyFoodiePackage
 
 struct MainView: View {
     
+    @State private var viewModel:ClientVM = ClientVM()
+    
     let backgroundColorView:CatalogoColori = .seaTurtle_1
     @State private var tabSelector: Int = 0
     
@@ -24,18 +26,19 @@ struct MainView: View {
                    // .badge(dishChange)
                     .badge(0) // Il pallino rosso delle notifiche !!!
                     .tabItem {
-                        Image(systemName: "house")
-                        Text("Home")
+                        Image(systemName: "menucard")
+                        Text("Menu")
                     }.tag(0)
 
-            PropertyVisited(backgroundColorView: backgroundColorView.color())
+            PropertyVisitedView(backgroundColorView: backgroundColorView.color())
                 .badge(0)
                 .tabItem {
                     Image (systemName: "menucard")//scroll.fill
-                    Text("Menu")
+                    Text("Check-In")
                 }.tag(1)
  
             }
+        .environmentObject(viewModel)
         .accentColor(CatalogoColori.seaTurtle_3.color())
     }
 }
@@ -45,21 +48,5 @@ struct MainView_Previews: PreviewProvider {
    
             MainView()
         
-    }
-}
-
-
-
-struct PropertyVisited:View {
-    
-    let backgroundColorView:Color
-    
-    var body: some View {
-        
-        NavigationStack {
-            CSZStackVB(title: "Check-In", backgroundColorView: backgroundColorView) {
-                Text("Lista proprietà scannerizzate")
-            }
-        }
     }
 }

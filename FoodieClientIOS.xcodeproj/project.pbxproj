@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3FB251972947737C00BF005D /* MyFoodiePackage in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB251962947737C00BF005D /* MyFoodiePackage */; };
+		3FB251992947761100BF005D /* PropertyVisitedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB251982947761100BF005D /* PropertyVisitedView.swift */; };
 		3FB42F172940AC79000DD169 /* FoodieClientIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F162940AC79000DD169 /* FoodieClientIOSApp.swift */; };
 		3FB42F192940AC79000DD169 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F182940AC79000DD169 /* ContentView.swift */; };
 		3FB42F1B2940AC7A000DD169 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FB42F1A2940AC7A000DD169 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3FB251982947761100BF005D /* PropertyVisitedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyVisitedView.swift; sourceTree = "<group>"; };
 		3FB42F132940AC79000DD169 /* FoodieClientIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodieClientIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB42F162940AC79000DD169 /* FoodieClientIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodieClientIOSApp.swift; sourceTree = "<group>"; };
 		3FB42F182940AC79000DD169 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				3FB42F252940D1E1000DD169 /* MainView.swift */,
 				3FB42F332940E7CB000DD169 /* QRScanView.swift */,
 				3FD8540E2941FAE900F7CC98 /* ClientVM.swift */,
+				3FB251982947761100BF005D /* PropertyVisitedView.swift */,
 				3FB42F1A2940AC7A000DD169 /* Assets.xcassets */,
 				3FB42F1C2940AC7A000DD169 /* FoodieClientIOS.entitlements */,
 				3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */,
@@ -183,6 +186,7 @@
 			files = (
 				3FB42F192940AC79000DD169 /* ContentView.swift in Sources */,
 				3FB42F262940D1E1000DD169 /* MainView.swift in Sources */,
+				3FB251992947761100BF005D /* PropertyVisitedView.swift in Sources */,
 				3FB42F342940E7CB000DD169 /* QRScanView.swift in Sources */,
 				3FB42F172940AC79000DD169 /* FoodieClientIOSApp.swift in Sources */,
 				3FD8540F2941FAE900F7CC98 /* ClientVM.swift in Sources */,

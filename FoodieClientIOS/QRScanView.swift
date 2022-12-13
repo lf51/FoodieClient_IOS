@@ -12,35 +12,42 @@ import CodeScanner
 
 struct QRScanView:View {
     
-    let backgroundColorView:Color
+    @EnvironmentObject var viewModel:ClientVM
     
-    @State private var keyAccess:String = "UserUID"
-    @State private var isShowingScanner:Bool = false
+    let backgroundColorView:Color
+    @State private var isShowingScanner:Bool = true
     
     var body: some View {
         
         NavigationStack {
-            CSZStackVB(title: "Scan Menu Qr", backgroundColorView: backgroundColorView) {
+            CSZStackVB(title: "Menu", backgroundColorView: backgroundColorView) {
                 
                 VStack {
-                    Text("FireStoreKeyAcceass:\(keyAccess)")
+                  
+              
                     
-                    Button {
+                    
+                   /* Button {
                         self.isShowingScanner.toggle()
                     } label: {
                         Text("ScanQR")
                             .font(.largeTitle)
                             .fontWeight(.black)
                             .foregroundColor(CatalogoColori.seaTurtle_3.color())
-                    }
+                    } */
                 }
 
+            }
+            .toolbar {
+                
+                ToolbarItem(placement: .navigationBarTrailing) { vbScanReload() }
+                
             }
             .popover(isPresented: $isShowingScanner, content: {
                 CodeScannerView(codeTypes: [.qr]) { result in
                     handleScan(result: result)
                     
-                }.presentationDetents([.medium])
+                }.presentationDetents([.height(600)])
 
             })
         
@@ -50,6 +57,46 @@ struct QRScanView:View {
     
     // Method
     
+    @ViewBuilder func vbScanReload() -> some View {
+        
+        let cloudDataCreated:Bool = {
+           
+            self.viewModel.cloudDataCompiler != nil &&
+            self.viewModel.cloudData != nil
+            
+        }()
+            
+        let frontColor = CatalogoColori.seaTurtle_1.color()
+        let backColor = CatalogoColori.seaTurtle_3.color()
+        
+        CSButton_image(
+            activationBool: cloudDataCreated,
+            frontImage: "arrow.triangle.2.circlepath",
+            backImage: "camera.fill",
+            imageScale: .large,
+            backColor: backColor,
+            frontColor: frontColor) {
+                
+                scanReloadAction(dataIn: cloudDataCreated)
+
+            }.disabled(self.isShowingScanner)
+        
+    }
+    
+    func scanReloadAction(dataIn:Bool) {
+        
+        if dataIn {
+            
+            self.viewModel.compilaCloudDataFromFirebase()
+            
+        } else {
+            
+            self.isShowingScanner.toggle()
+            
+        }
+        
+    }
+    
     func handleScan(result:Result<ScanResult,ScanError>) {
         
         // handle QRCode
@@ -57,13 +104,13 @@ struct QRScanView:View {
         
         switch result {
         case .success(let success):
-            let details = success.string.components(separatedBy: "\n")
-            self.keyAccess = success.string
+
+            self.viewModel.cloudDataCompiler = CloudDataCompiler(userUID: success.string)
             
-            print("link:\(details) and type:\(success.type.rawValue)")
-            guard details.count == 2 else { return }
+            self.viewModel.compilaCloudDataFromFirebase()
             
-     
+            print("link:\(success.string) and type:\(success.type.rawValue)")
+      
             
         case .failure(let failure):
             print("Scan Failure :\(failure.localizedDescription)")
@@ -76,5 +123,6 @@ struct QRScanView:View {
 struct QRScanView_Previews: PreviewProvider {
     static var previews: some View {
         QRScanView(backgroundColorView: CatalogoColori.seaTurtle_1.color())
+            .environmentObject(ClientVM())
     }
 }
