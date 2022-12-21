@@ -18,44 +18,36 @@ struct PropertyVisitedView: View {
     var body: some View {
         
         NavigationStack {
+            
             CSZStackVB(title: "Check-In", backgroundColorView: backgroundColorView) {
                
                 VStack {
                     
-                    if let all = viewModel.cloudData?.allMyDish {
+                    if viewModel.checkInProperties.isEmpty {
                         
-                        if all.isEmpty { Text("Elenco Vuoto")}
-                        else {
-                            
-                            VStack {
-                                
-                                ForEach(all) { dish in
-                                    
-                                    Text(dish.id)
-                                        .foregroundColor(Color.black)
-                                    
-                                    
-                                    
-                                }
-                                
-                            }
-                            
-                        }
+                        
+                        Text("Elenco Vuoto")
+                        
+                       
                         
                         
                         
                     } else {
                         
-                        Text("Cloud Data not Exist")
+                        VStack {
+                            
+                            ForEach(viewModel.checkInProperties) { property in
+                                
+                                Text(property.intestazione)
+                                    .foregroundColor(Color.black)
+                                
+                                
+                                
+                            }
+                            
+                        }
+
                     }
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                 }
                 
                 

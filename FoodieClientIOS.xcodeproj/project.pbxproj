@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F7FAA16294B65F2000C4739 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7FAA15294B65F2000C4739 /* FirebaseFirestoreSwift */; };
+		3FA887342951B98A0094058A /* MyFilterPackage in Resources */ = {isa = PBXBuildFile; fileRef = 3FA887332951B98A0094058A /* MyFilterPackage */; };
+		3FA887362951BA550094058A /* MyFilterPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 3FA887352951BA550094058A /* MyFilterPackage */; };
 		3FB251972947737C00BF005D /* MyFoodiePackage in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB251962947737C00BF005D /* MyFoodiePackage */; };
 		3FB251992947761100BF005D /* PropertyVisitedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB251982947761100BF005D /* PropertyVisitedView.swift */; };
 		3FB42F172940AC79000DD169 /* FoodieClientIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F162940AC79000DD169 /* FoodieClientIOSApp.swift */; };
@@ -17,6 +20,7 @@
 		3FB42F292940D415000DD169 /* MyPackView_L0 in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB42F282940D415000DD169 /* MyPackView_L0 */; };
 		3FB42F322940E698000DD169 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB42F312940E698000DD169 /* CodeScanner */; };
 		3FB42F342940E7CB000DD169 /* QRScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F332940E7CB000DD169 /* QRScanView.swift */; };
+		3FBD7C98294F5860005A4484 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD7C97294F5860005A4484 /* Extension.swift */; };
 		3FD854042941EFF700F7CC98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */; };
 		3FD854072941F0A700F7CC98 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD854062941F0A700F7CC98 /* FirebaseAuth */; };
 		3FD854092941F0A700F7CC98 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD854082941F0A700F7CC98 /* FirebaseDynamicLinks */; };
@@ -26,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3FA887332951B98A0094058A /* MyFilterPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MyFilterPackage; path = "../../[A]BackEnd/MyFilterPackage"; sourceTree = "<group>"; };
 		3FB251982947761100BF005D /* PropertyVisitedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyVisitedView.swift; sourceTree = "<group>"; };
 		3FB42F132940AC79000DD169 /* FoodieClientIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodieClientIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB42F162940AC79000DD169 /* FoodieClientIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodieClientIOSApp.swift; sourceTree = "<group>"; };
@@ -35,6 +40,7 @@
 		3FB42F1E2940AC7A000DD169 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3FB42F252940D1E1000DD169 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3FB42F332940E7CB000DD169 /* QRScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScanView.swift; sourceTree = "<group>"; };
+		3FBD7C97294F5860005A4484 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3FD8540E2941FAE900F7CC98 /* ClientVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,17 +57,28 @@
 				3FD854092941F0A700F7CC98 /* FirebaseDynamicLinks in Frameworks */,
 				3FB251972947737C00BF005D /* MyFoodiePackage in Frameworks */,
 				3FD8540B2941F0A700F7CC98 /* FirebaseFirestore in Frameworks */,
+				3FA887362951BA550094058A /* MyFilterPackage in Frameworks */,
+				3F7FAA16294B65F2000C4739 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F7FAA14294B65F2000C4739 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3FB42F0A2940AC79000DD169 = {
 			isa = PBXGroup;
 			children = (
+				3FA887332951B98A0094058A /* MyFilterPackage */,
 				3FB42F152940AC79000DD169 /* FoodieClientIOS */,
 				3FB42F142940AC79000DD169 /* Products */,
+				3F7FAA14294B65F2000C4739 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +98,7 @@
 				3FB42F252940D1E1000DD169 /* MainView.swift */,
 				3FB42F332940E7CB000DD169 /* QRScanView.swift */,
 				3FD8540E2941FAE900F7CC98 /* ClientVM.swift */,
+				3FBD7C97294F5860005A4484 /* Extension.swift */,
 				3FB251982947761100BF005D /* PropertyVisitedView.swift */,
 				3FB42F1A2940AC7A000DD169 /* Assets.xcassets */,
 				3FB42F1C2940AC7A000DD169 /* FoodieClientIOS.entitlements */,
@@ -122,6 +140,8 @@
 				3FD8540A2941F0A700F7CC98 /* FirebaseFirestore */,
 				3FD8540C2941F0A700F7CC98 /* FirebaseStorage */,
 				3FB251962947737C00BF005D /* MyFoodiePackage */,
+				3F7FAA15294B65F2000C4739 /* FirebaseFirestoreSwift */,
+				3FA887352951BA550094058A /* MyFilterPackage */,
 			);
 			productName = FoodieClientIOS;
 			productReference = 3FB42F132940AC79000DD169 /* FoodieClientIOS.app */;
@@ -174,6 +194,7 @@
 				3FB42F1F2940AC7A000DD169 /* Preview Assets.xcassets in Resources */,
 				3FB42F1B2940AC7A000DD169 /* Assets.xcassets in Resources */,
 				3FD854042941EFF700F7CC98 /* GoogleService-Info.plist in Resources */,
+				3FA887342951B98A0094058A /* MyFilterPackage in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +208,7 @@
 				3FB42F192940AC79000DD169 /* ContentView.swift in Sources */,
 				3FB42F262940D1E1000DD169 /* MainView.swift in Sources */,
 				3FB251992947761100BF005D /* PropertyVisitedView.swift in Sources */,
+				3FBD7C98294F5860005A4484 /* Extension.swift in Sources */,
 				3FB42F342940E7CB000DD169 /* QRScanView.swift in Sources */,
 				3FB42F172940AC79000DD169 /* FoodieClientIOSApp.swift in Sources */,
 				3FD8540F2941FAE900F7CC98 /* ClientVM.swift in Sources */,
@@ -312,7 +334,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FoodieClientIOS/FoodieClientIOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodieClientIOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HR732K89Z;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -351,7 +373,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FoodieClientIOS/FoodieClientIOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodieClientIOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HR732K89Z;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -442,6 +464,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3F7FAA15294B65F2000C4739 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FD854052941F0A700F7CC98 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		3FA887352951BA550094058A /* MyFilterPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MyFilterPackage;
+		};
 		3FB251962947737C00BF005D /* MyFoodiePackage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3FB251952947737C00BF005D /* XCRemoteSwiftPackageReference "MyFoodiePackage_IOS" */;
