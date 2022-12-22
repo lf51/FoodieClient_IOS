@@ -30,17 +30,21 @@ extension DishModel:Object_FPC {
     public func propertyCompare(filterProperties: FilterProperty, readOnlyVM: ClientVM) -> Bool {
           
         let coreFilter = filterProperties.coreFilter
+        let allRIFCategories = filterProperties.categorieMenu?.map({$0.id})
         
          return self.stringResearch(string: coreFilter.stringaRicerca, readOnlyVM: readOnlyVM) &&
-          coreFilter.comparePropertyToCollection(localProperty: self.percorsoProdotto, filterCollection: filterProperties.percorsoPRP)
+        
+          coreFilter.comparePropertyToCollection(localProperty: self.percorsoProdotto, filterCollection: filterProperties.percorsoPRP) &&
+        
+          coreFilter.compareRifToCollectionRif(localPropertyRif: self.categoriaMenu, filterCollection: allRIFCategories)
+        
+        
       }
     
     public struct FilterProperty:SubFilterObject_FPC {
         
-        public typealias M = DishModel
-       // public typealias M = DishModel
-    //   public typealias VM = ClientVM
-        
+       public typealias M = DishModel
+
        public var coreFilter:CoreFilter
        public var sortCondition: DishModel.SortCondition
         
@@ -57,17 +61,10 @@ extension DishModel:Object_FPC {
            self.basePRP = nil
            self.dietePRP = nil
        }
-        
-      /* public func propertyCompare(filterModel: DishModel, readOnlyVM: ClientVM) -> Bool {
-            
-            filterModel.stringResearch(string: coreFilter.stringaRicerca, readOnlyVM: readOnlyVM) &&
-            coreFilter.comparePropertyToCollection(localProperty: filterModel.percorsoProdotto, filterCollection: self.percorsoPRP)
-        }*/
-    
+
    }
     
     public enum SortCondition:SubSortObject_FPC {
-        // Di default c'è l'ordine alfabetico crescente
         
        public static var defaultValue: SortCondition = .alfabeticoCrescente
         
@@ -86,6 +83,7 @@ extension DishModel:Object_FPC {
              case .mostRated: return "Numero di Recensioni"
                  
              case .alfabeticoCrescente: return ""
+                 
              }
          }
          
