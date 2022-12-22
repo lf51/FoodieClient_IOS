@@ -14,7 +14,8 @@ extension DishModel:Object_FPC {
   //  public typealias VM = ClientVM
     
     public static func sortModelInstance(lhs: DishModel, rhs: DishModel, condition: SortCondition?, readOnlyVM: ClientVM) -> Bool {
-        return true
+        
+       return true
     }
     
     public func stringResearch(string: String, readOnlyVM: ClientVM?) -> Bool {
@@ -46,7 +47,7 @@ extension DishModel:Object_FPC {
        public typealias M = DishModel
 
        public var coreFilter:CoreFilter
-       public var sortCondition: DishModel.SortCondition
+       public var sortCondition: SortCondition
         
        var percorsoPRP:[DishModel.PercorsoProdotto]?
        var categorieMenu:[CategoriaMenu]?
@@ -56,10 +57,7 @@ extension DishModel:Object_FPC {
        public init() {
            self.coreFilter = CoreFilter()
            self.sortCondition = .defaultValue
-           self.percorsoPRP = nil
-           self.categorieMenu = nil
-           self.basePRP = nil
-           self.dietePRP = nil
+
        }
 
    }
