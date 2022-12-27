@@ -239,7 +239,7 @@ extension ClientVM: VM_FPC {
         return sortedInTheModel
     } */
     
-    public func ricercaFiltra<M:Object_FPC>(containerPath: WritableKeyPath<ClientVM, [M]>, filterProperties: M.FilterProperty) -> [M] where ClientVM == M.VM, M.SortCondition == M.FilterProperty.M.SortCondition {
+   /* public func ricercaFiltra<M:Object_FPC>(containerPath: WritableKeyPath<ClientVM, [M]>, filterProperties: M.FilterProperty) -> [M] where ClientVM == M.VM, M.SortCondition == M.FilterProperty.M.SortCondition {
         
         let container = self[keyPath: containerPath]
         
@@ -251,5 +251,20 @@ extension ClientVM: VM_FPC {
         }
         return containerSecondSort
         
+    } */
+    
+    public func ricercaFiltra<M:Object_FPC>(
+        containerPath: WritableKeyPath<ClientVM, [M]>,
+        coreFilter: CoreFilter<M>) -> [M] where ClientVM == M.VM {
+        
+            let container = self[keyPath: containerPath]
+            
+            let containerFiltered = container.filter({ $0.propertyCompare(coreFilter: coreFilter, readOnlyVM: self) })
+            
+            let containerSorted = containerFiltered.sorted {
+                M.sortModelInstance(lhs: $0, rhs: $1, condition: coreFilter.sortConditions, readOnlyVM: self)
+            }
+            return containerSorted
     }
+    
 }

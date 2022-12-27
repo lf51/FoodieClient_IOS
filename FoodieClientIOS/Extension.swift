@@ -28,26 +28,26 @@ extension DishModel:Object_FPC {
         return conditionOne
     }
     
-    public func propertyCompare(filterProperties: FilterProperty, readOnlyVM: ClientVM) -> Bool {
-          
-        let coreFilter = filterProperties.coreFilter
+   public func propertyCompare(coreFilter: CoreFilter<DishModel>, readOnlyVM: ClientVM) -> Bool {
+        
+        let filterProperties = coreFilter.filterProperties
         let allRIFCategories = filterProperties.categorieMenu?.map({$0.id})
         
-         return self.stringResearch(string: coreFilter.stringaRicerca, readOnlyVM: readOnlyVM) &&
+        return self.stringResearch(string: coreFilter.stringaRicerca, readOnlyVM: readOnlyVM) &&
+       
+         coreFilter.comparePropertyToCollection(localProperty: self.percorsoProdotto, filterCollection: filterProperties.percorsoPRP) &&
+       
+         coreFilter.compareRifToCollectionRif(localPropertyRif: self.categoriaMenu, filterCollection: allRIFCategories)
         
-          coreFilter.comparePropertyToCollection(localProperty: self.percorsoProdotto, filterCollection: filterProperties.percorsoPRP) &&
-        
-          coreFilter.compareRifToCollectionRif(localPropertyRif: self.categoriaMenu, filterCollection: allRIFCategories)
-        
-        
-      }
+    }
+    
     
     public struct FilterProperty:SubFilterObject_FPC {
         
-       public typealias M = DishModel
+      // public typealias M = DishModel
 
-       public var coreFilter:CoreFilter
-       public var sortCondition: SortCondition
+     //  public var coreFilter:CoreFilter
+     //  public var sortCondition: SortCondition
         
        var percorsoPRP:[DishModel.PercorsoProdotto]?
        var categorieMenu:[CategoriaMenu]?
@@ -55,10 +55,26 @@ extension DishModel:Object_FPC {
        var dietePRP:[TipoDieta]?
        
        public init() {
-           self.coreFilter = CoreFilter()
-           self.sortCondition = .defaultValue
+        //   self.coreFilter = CoreFilter()
+        //   self.sortCondition = .defaultValue
 
        }
+        
+        public static func reportChange(old: DishModel.FilterProperty, new: DishModel.FilterProperty) -> Int {
+            
+            countManageSingle_FPC(
+                newValue: new.basePRP,
+                oldValue: old.basePRP) +
+            countManageCollection_FPC(
+                newValue: new.percorsoPRP,
+                oldValue: old.percorsoPRP) +
+            countManageCollection_FPC(
+                newValue: new.categorieMenu,
+                oldValue: old.categorieMenu) +
+            countManageCollection_FPC(
+                newValue: new.dietePRP,
+                oldValue: old.dietePRP)
+        }
 
    }
     
@@ -107,7 +123,7 @@ extension DishModel.PercorsoProdotto:Property_FPC {}
 
 extension DishModel.BasePreparazione:Property_FPC {}
 
-extension CategoriaMenu:Property_FPC {}
+extension CategoriaMenu:Property_FPC_Mappable {}
 
 extension TipoDieta:Property_FPC {}
 

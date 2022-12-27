@@ -16,7 +16,9 @@ struct QRScanView:View {
     @EnvironmentObject var viewModel:ClientVM
     let backgroundColorView:Color
     
-    @State private var filterProperties:DishModel.FilterProperty = DishModel.FilterProperty()
+   // @State private var filterProperties:DishModel.FilterProperty = DishModel.FilterProperty()
+    @State private var mapTree:MapTree<DishModel,CategoriaMenu>?
+    @State private var filterCore:CoreFilter<DishModel> = CoreFilter()
     @State private var openFilter:Bool = false
     @State private var openSort:Bool = false
     
@@ -26,19 +28,25 @@ struct QRScanView:View {
         
         NavigationStack {
             
-            let container:[DishModel] = self.viewModel.ricercaFiltra(containerPath: \.allMyDish, filterProperties: filterProperties)
+            let container:[DishModel] = self.viewModel.ricercaFiltra(containerPath: \.allMyDish, coreFilter: filterCore)
             
             FiltrableContainerView(
             backgroundColorView: backgroundColorView,
             title: "Menu",
-            filterProperties: $filterProperties,
+            filterCore: $filterCore,
             placeHolderBarraRicerca: "Ricerca piatti,ingredienti,allergeni",
             buttonColor: CatalogoColori.seaTurtle_3.color(),
+            elementContainer: container,
+            mapTree:mapTree,
             thirdButtonAction: { self.openFilter.toggle() },
-            content: { vbContent(container: container) },
             trailingView: { vbScanReload() },
             filterView: { vbFilterView(container: container) },
-            sorterView: { vbSorterView() })
+            sorterView: { vbSorterView() },
+            elementView: { dish in
+                
+                vbContent(element: dish)
+                
+            })
             .popover(isPresented: $isShowingScanner, content: {
                 CodeScannerView(codeTypes: [.qr]) { result in
                     handleScan(result: result)
@@ -56,7 +64,11 @@ struct QRScanView:View {
     // Method
     
     
-    @ViewBuilder private func vbContent(container:[DishModel]) -> some View {
+    @ViewBuilder private func vbContent(element:DishModel) -> some View {
+        
+            Text(element.intestazione)
+                .foregroundColor(Color.black)
+        
         
     }
     
@@ -65,7 +77,7 @@ struct QRScanView:View {
         // Oggetti MyFilterRow
         MyFilterRow(
             allCases: DishModel.PercorsoProdotto.allCases,
-            filterCollection: $filterProperties.percorsoPRP,
+            filterCollection: $filterCore.filterProperties.percorsoPRP,
             //filterCollection: $filterCore.properties.percorsoPRP,
             selectionColor: Color.white.opacity(0.5),
             imageOrEmoji: "fork.knife",
@@ -76,7 +88,7 @@ struct QRScanView:View {
         
         MyFilterRow(
             allCases: self.viewModel.allMyCategories,
-            filterCollection: $filterProperties.categorieMenu,
+            filterCollection: $filterCore.filterProperties.categorieMenu,
            // filterCollection: $filterCore.properties.categorieMenu,
             selectionColor: Color.yellow.opacity(0.7),
             imageOrEmoji: "list.bullet.indent",
@@ -86,7 +98,7 @@ struct QRScanView:View {
         
         MyFilterRow(
             allCases: DishModel.BasePreparazione.allCase,
-            filterProperty: $filterProperties.basePRP,
+            filterProperty: $filterCore.filterProperties.basePRP,
            // filterProperty: $filterCore.properties.basePRP,
             selectionColor: Color.brown,
             imageOrEmoji: "leaf",
@@ -96,7 +108,7 @@ struct QRScanView:View {
         
         MyFilterRow(
             allCases: TipoDieta.allCases,
-            filterCollection: $filterProperties.dietePRP,
+            filterCollection: $filterCore.filterProperties.dietePRP,
            // filterCollection: $filterCore.properties.dietePRP,
             selectionColor: Color.orange.opacity(0.6),
             imageOrEmoji: "person.fill.checkmark",
@@ -113,17 +125,17 @@ struct QRScanView:View {
         let coloreSelezione = CatalogoColori.seaTurtle_2.color()
         
         MySortRow(
-            sortCondition: $filterProperties.sortCondition,
+            sortCondition: $filterCore.sortConditions,
             localSortCondition: .topRated,
             coloreScelta: coloreSelezione)
         
         MySortRow(
-            sortCondition: $filterProperties.sortCondition,
+            sortCondition: $filterCore.sortConditions,
             localSortCondition: .mostRated,
             coloreScelta: coloreSelezione)
         
         MySortRow(
-            sortCondition: $filterProperties.sortCondition,
+            sortCondition: $filterCore.sortConditions,
             localSortCondition: .topPriced,
             coloreScelta: coloreSelezione)
         
