@@ -31,6 +31,7 @@ struct QRScanView:View {
             let container:[DishModel] = self.viewModel.ricercaFiltra(containerPath: \.allMyDish, coreFilter: filterCore)
             
             FiltrableContainerView(
+                
             backgroundColorView: backgroundColorView,
             title: "Menu",
             filterCore: $filterCore,
