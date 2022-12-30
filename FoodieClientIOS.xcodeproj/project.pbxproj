@@ -17,10 +17,10 @@
 		3FB42F1B2940AC7A000DD169 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FB42F1A2940AC7A000DD169 /* Assets.xcassets */; };
 		3FB42F1F2940AC7A000DD169 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FB42F1E2940AC7A000DD169 /* Preview Assets.xcassets */; };
 		3FB42F262940D1E1000DD169 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F252940D1E1000DD169 /* MainView.swift */; };
-		3FB42F292940D415000DD169 /* MyPackView_L0 in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB42F282940D415000DD169 /* MyPackView_L0 */; };
 		3FB42F322940E698000DD169 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB42F312940E698000DD169 /* CodeScanner */; };
 		3FB42F342940E7CB000DD169 /* QRScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F332940E7CB000DD169 /* QRScanView.swift */; };
 		3FBD7C98294F5860005A4484 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD7C97294F5860005A4484 /* Extension.swift */; };
+		3FC96158295EF8FB00D0E01A /* MyPackView_L0 in Frameworks */ = {isa = PBXBuildFile; productRef = 3FC96157295EF8FB00D0E01A /* MyPackView_L0 */; };
 		3FD854042941EFF700F7CC98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */; };
 		3FD854072941F0A700F7CC98 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD854062941F0A700F7CC98 /* FirebaseAuth */; };
 		3FD854092941F0A700F7CC98 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD854082941F0A700F7CC98 /* FirebaseDynamicLinks */; };
@@ -50,11 +50,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FB42F292940D415000DD169 /* MyPackView_L0 in Frameworks */,
 				3FB42F322940E698000DD169 /* CodeScanner in Frameworks */,
 				3FD854072941F0A700F7CC98 /* FirebaseAuth in Frameworks */,
 				3FD8540D2941F0A700F7CC98 /* FirebaseStorage in Frameworks */,
 				3FD854092941F0A700F7CC98 /* FirebaseDynamicLinks in Frameworks */,
+				3FC96158295EF8FB00D0E01A /* MyPackView_L0 in Frameworks */,
 				3FB251972947737C00BF005D /* MyFoodiePackage in Frameworks */,
 				3FD8540B2941F0A700F7CC98 /* FirebaseFirestore in Frameworks */,
 				3FA887362951BA550094058A /* MyFilterPackage in Frameworks */,
@@ -133,7 +133,6 @@
 			);
 			name = FoodieClientIOS;
 			packageProductDependencies = (
-				3FB42F282940D415000DD169 /* MyPackView_L0 */,
 				3FB42F312940E698000DD169 /* CodeScanner */,
 				3FD854062941F0A700F7CC98 /* FirebaseAuth */,
 				3FD854082941F0A700F7CC98 /* FirebaseDynamicLinks */,
@@ -142,6 +141,7 @@
 				3FB251962947737C00BF005D /* MyFoodiePackage */,
 				3F7FAA15294B65F2000C4739 /* FirebaseFirestoreSwift */,
 				3FA887352951BA550094058A /* MyFilterPackage */,
+				3FC96157295EF8FB00D0E01A /* MyPackView_L0 */,
 			);
 			productName = FoodieClientIOS;
 			productReference = 3FB42F132940AC79000DD169 /* FoodieClientIOS.app */;
@@ -334,7 +334,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FoodieClientIOS/FoodieClientIOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodieClientIOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HR732K89Z;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -373,7 +373,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FoodieClientIOS/FoodieClientIOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodieClientIOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HR732K89Z;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -478,15 +478,15 @@
 			package = 3FB251952947737C00BF005D /* XCRemoteSwiftPackageReference "MyFoodiePackage_IOS" */;
 			productName = MyFoodiePackage;
 		};
-		3FB42F282940D415000DD169 /* MyPackView_L0 */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3FB42F272940D415000DD169 /* XCRemoteSwiftPackageReference "MyPackView_L0" */;
-			productName = MyPackView_L0;
-		};
 		3FB42F312940E698000DD169 /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3FB42F302940E698000DD169 /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
+		};
+		3FC96157295EF8FB00D0E01A /* MyPackView_L0 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FB42F272940D415000DD169 /* XCRemoteSwiftPackageReference "MyPackView_L0" */;
+			productName = MyPackView_L0;
 		};
 		3FD854062941F0A700F7CC98 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
