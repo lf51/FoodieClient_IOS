@@ -13,16 +13,16 @@ import MyFoodiePackage
 
 struct MainView: View {
     
-    @State private var viewModel:ClientVM = ClientVM()
+    @StateObject var viewModel:ClientVM = ClientVM()
     
-    let backgroundColorView:CatalogoColori = .seaTurtle_1
+    let backgroundColorView:Color = .seaTurtle_1
     @State private var tabSelector: Int = 0
     
     var body: some View {
         
         TabView(selection:$tabSelector) { // Deprecata da Apple / Sostituire
                 
-            QRScanView(backgroundColorView: backgroundColorView.color())
+            QRScanView(backgroundColorView: backgroundColorView)
                    // .badge(dishChange)
                     .badge(0) // Il pallino rosso delle notifiche !!!
                     .tabItem {
@@ -30,7 +30,7 @@ struct MainView: View {
                         Text("Menu")
                     }.tag(0)
 
-            PropertyVisitedView(backgroundColorView: backgroundColorView.color())
+            PropertyVisitedView(backgroundColorView: backgroundColorView)
                 .badge(0)
                 .tabItem {
                     Image (systemName: "menucard")//scroll.fill
@@ -39,7 +39,7 @@ struct MainView: View {
  
             }
         .environmentObject(viewModel)
-        .accentColor(CatalogoColori.seaTurtle_3.color())
+        .accentColor(.seaTurtle_3)
     }
 }
 

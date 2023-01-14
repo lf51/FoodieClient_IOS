@@ -21,43 +21,59 @@ struct QRScanView:View {
     @State private var filterCore:CoreFilter<DishModel> = CoreFilter()
     @State private var openFilter:Bool = false
     @State private var openSort:Bool = false
+    @State private var mostraVistaEspansa:Bool = true
     
     @State private var isShowingScanner:Bool = true
+    @State private var currentDishForRatingList:DishModel?
+   // @State private var preSelection:[DishModel] = []
+   // @State private var subTotalPrice:Double = 10.5 // 10.01.23 somma i prezzi. Valutare se incorporarlo nella preSelection creando un dizionario
     
     var body: some View {
         
         NavigationStack {
             
             let container:[DishModel] = self.viewModel.ricercaFiltra(containerPath: \.allMyDish, coreFilter: filterCore)
-            
-            FiltrableContainerView(
-                
-            backgroundColorView: backgroundColorView,
-            title: "Menu",
-            filterCore: $filterCore,
-            placeHolderBarraRicerca: "Ricerca piatti,ingredienti,allergeni",
-            buttonColor: CatalogoColori.seaTurtle_3.color(),
-            elementContainer: container,
-            mapTree:mapTree,
-            thirdButtonAction: { self.openFilter.toggle() },
-            trailingView: { vbScanReload() },
-            filterView: { vbFilterView(container: container) },
-            sorterView: { vbSorterView() },
-            elementView: { dish in
-                
-                vbContent(element: dish)
-                
-            })
-            .popover(isPresented: $isShowingScanner, content: {
-                CodeScannerView(codeTypes: [.qr]) { result in
-                    handleScan(result: result)
+          
+                FiltrableContainerView(
+                backgroundColorView: .seaTurtle_1,
+                title: "Menu",
+                filterCore: $filterCore,
+                placeHolderBarraRicerca: "Ricerca piatto, ingrediente, allergene",
+                buttonColor: .seaTurtle_3,
+                elementContainer: container,
+                mapTree: mapTree,
+                thirdButtonAction: { self.openFilter.toggle() },
+                trailingView: { vbTrailingBar() },
+                filterView: { vbFilterView(container: container) },
+                sorterView: { vbSorterView() },
+                elementView: { dish in
                     
-                }.presentationDetents([.height(600)])
-
-            })
-           
-            
-        
+                    vbContent(element: dish)
+                        .id(self.mostraVistaEspansa)
+       
+                })
+                .popover(isPresented: $isShowingScanner,attachmentAnchor: .point(.leading),arrowEdge: .bottom, content: {
+                    
+                    CodeScannerView(codeTypes: [.qr]) { result in
+                        handleScan(result: result)
+                    }.presentationDetents([.height(600)])
+                    
+                })
+                .popover(item: $currentDishForRatingList,attachmentAnchor: .point(.trailing), arrowEdge: .trailing, content: { dish in
+                  
+                    DishRatingListView(
+                     dishItem: dish,
+                     backgroundColorView: backgroundColorView,
+                     readOnlyViewModel: self.viewModel)
+                    .presentationDetents([.height(650)])
+                    
+                })
+                .navigationDestination(for: DestinationPathView.self) { destination in
+                    destination.destinationAdress(
+                        backgroundColorView: backgroundColorView,
+                        readOnlyViewModel: viewModel)
+                }
+ 
         }// chiusa NavStack
         
     }
@@ -67,11 +83,52 @@ struct QRScanView:View {
     
     @ViewBuilder private func vbContent(element:DishModel) -> some View {
         
-            Text(element.intestazione)
-                .foregroundColor(Color.black)
-        
-        
+        DishModelRow_ClientVersion(
+            viewModel: viewModel,
+            item: element,
+            rowColor: backgroundColorView,
+            rowOpacity: 0.15,
+            rowBoundReduction: 20, //rowBoundReduction
+            vistaEspansa: mostraVistaEspansa) {
+                
+                self.viewModel.checkSelection(rif: element.id)
+                
+            } selectorAction: {
+                
+                self.viewModel.preSelectionLogic(rif: element.id)
+                
+            } reviewButton: {
+                
+                self.currentDishForRatingList = element
+            }
+
     }
+    
+   /* private func checkSelection(rif:String) -> Bool {
+        
+        let value = self.viewModel.preSelectionRif.contains(rif)
+        print("[0] CheckSelection: Value is \(rif) -> Return is \(value.description)")
+        return value
+    }
+    
+    private func preSelectionLogic(rif:String) {
+        
+        var dishes = self.viewModel.preSelectionRif
+        
+        if let index = dishes.firstIndex(of: rif) {
+            
+            dishes.remove(at: index)
+            
+        } else {
+            
+            dishes.append(rif)
+        }
+        
+        self.viewModel.preSelectionRif = dishes
+                
+        print("[1] preSelectionLogic: Value is -> \(rif)")
+
+    }*/
     
     @ViewBuilder private func vbFilterView(container:[DishModel]) -> some View {
 
@@ -123,7 +180,7 @@ struct QRScanView:View {
     
     @ViewBuilder private func vbSorterView() -> some View {
         
-        let coloreSelezione = CatalogoColori.seaTurtle_2.color()
+        let coloreSelezione:Color = .seaTurtle_2
         
         MySortRow(
             sortCondition: $filterCore.sortConditions,
@@ -142,8 +199,54 @@ struct QRScanView:View {
         
     }
     
+    @ViewBuilder private func vbTrailingBar() -> some View {
+        
+        let preSelection = self.viewModel.preSelectionRif
+        
+        let value:(emptyString:String,color:Color,disableLink:Bool) = {
+           
+            if preSelection.isEmpty {
+                return ("",.seaTurtle_1,true)
+            } else {
+                return (".fill",.seaTurtle_3,false)
+            }
+            
+        }()
+        
+        HStack(spacing:10) {
+            
+            CSButton_image(
+                activationBool: self.mostraVistaEspansa,
+                frontImage: "arrow.right.and.line.vertical.and.arrow.left",
+                backImage: "arrow.left.and.line.vertical.and.arrow.right",
+                imageScale: .large,
+                backColor: .seaTurtle_4,
+                frontColor: .seaTurtle_3) {
+                    withAnimation {
+                        self.mostraVistaEspansa.toggle()
+                    }
+                }
+            
+            NavigationLink(value: DestinationPathView.preSelezionePiatti) {
+                
+                HStack(alignment:.top,spacing: 0) {
+                    
+                    Image(systemName: "heart\(value.emptyString)")
+                            .imageScale(.large)
+                           
+                    Text("\(preSelection.count,format: .number)")
+                        .font(.system(.caption, design: .monospaced, weight: .semibold))
+        
+                }
+                .foregroundColor(value.color)
+            }.disabled(value.disableLink)
+            
+            csScanReload()
+            
+        }
+    }
     
-    @ViewBuilder private func vbScanReload() -> some View {
+     private func csScanReload() -> some View {
         
         let cloudDataCreated:Bool = {
            
@@ -152,21 +255,20 @@ struct QRScanView:View {
             
         }()
             
-        let frontColor = CatalogoColori.seaTurtle_1.color()
-        let backColor = CatalogoColori.seaTurtle_3.color()
-        
-        CSButton_image(
-            activationBool: cloudDataCreated,
-            frontImage: "arrow.clockwise.icloud.fill",
-            backImage: "camera.fill",
-            imageScale: .large,
-            backColor: backColor,
-            frontColor: frontColor) {
-                
-                scanReloadAction(dataIn: cloudDataCreated)
+        let frontColor:Color = .seaTurtle_1
+        let backColor:Color = .seaTurtle_3
+ 
+         return CSButton_image(
+                activationBool: cloudDataCreated,
+                frontImage: "arrow.clockwise.icloud.fill",
+                backImage: "camera.fill",
+                imageScale: .large,
+                backColor: backColor,
+                frontColor: frontColor) {
+                    
+                    scanReloadAction(dataIn: cloudDataCreated)
 
-            }.disabled(self.isShowingScanner)
-        
+                }.disabled(self.isShowingScanner)
     }
     
    private func scanReloadAction(dataIn:Bool) {
@@ -208,7 +310,7 @@ struct QRScanView:View {
 
 struct QRScanView_Previews: PreviewProvider {
     static var previews: some View {
-        QRScanView(backgroundColorView: CatalogoColori.seaTurtle_1.color())
-            .environmentObject(ClientVM())
+        QRScanView(backgroundColorView:.seaTurtle_1)
+            .environmentObject(testAccount)
     }
 }

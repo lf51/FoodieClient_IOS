@@ -20,6 +20,8 @@
 		3FB42F322940E698000DD169 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB42F312940E698000DD169 /* CodeScanner */; };
 		3FB42F342940E7CB000DD169 /* QRScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F332940E7CB000DD169 /* QRScanView.swift */; };
 		3FBD7C98294F5860005A4484 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD7C97294F5860005A4484 /* Extension.swift */; };
+		3FC4A53C29717A9800C0E795 /* FakeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC4A53B29717A9800C0E795 /* FakeVM.swift */; };
+		3FC4A53E297199C700C0E795 /* DishRatingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC4A53D297199C700C0E795 /* DishRatingListView.swift */; };
 		3FC96158295EF8FB00D0E01A /* MyPackView_L0 in Frameworks */ = {isa = PBXBuildFile; productRef = 3FC96157295EF8FB00D0E01A /* MyPackView_L0 */; };
 		3FD854042941EFF700F7CC98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */; };
 		3FD854072941F0A700F7CC98 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD854062941F0A700F7CC98 /* FirebaseAuth */; };
@@ -27,6 +29,8 @@
 		3FD8540B2941F0A700F7CC98 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD8540A2941F0A700F7CC98 /* FirebaseFirestore */; };
 		3FD8540D2941F0A700F7CC98 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD8540C2941F0A700F7CC98 /* FirebaseStorage */; };
 		3FD8540F2941FAE900F7CC98 /* ClientVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD8540E2941FAE900F7CC98 /* ClientVM.swift */; };
+		3FE8080C296ED284001C5CDC /* DestinationPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE8080B296ED284001C5CDC /* DestinationPath.swift */; };
+		3FE8080E296ED600001C5CDC /* PreSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FE8080D296ED600001C5CDC /* PreSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +45,12 @@
 		3FB42F252940D1E1000DD169 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3FB42F332940E7CB000DD169 /* QRScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScanView.swift; sourceTree = "<group>"; };
 		3FBD7C97294F5860005A4484 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		3FC4A53B29717A9800C0E795 /* FakeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeVM.swift; sourceTree = "<group>"; };
+		3FC4A53D297199C700C0E795 /* DishRatingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishRatingListView.swift; sourceTree = "<group>"; };
 		3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3FD8540E2941FAE900F7CC98 /* ClientVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientVM.swift; sourceTree = "<group>"; };
+		3FE8080B296ED284001C5CDC /* DestinationPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationPath.swift; sourceTree = "<group>"; };
+		3FE8080D296ED600001C5CDC /* PreSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +105,13 @@
 				3FB42F182940AC79000DD169 /* ContentView.swift */,
 				3FB42F252940D1E1000DD169 /* MainView.swift */,
 				3FB42F332940E7CB000DD169 /* QRScanView.swift */,
+				3FC4A53B29717A9800C0E795 /* FakeVM.swift */,
+				3FE8080B296ED284001C5CDC /* DestinationPath.swift */,
 				3FD8540E2941FAE900F7CC98 /* ClientVM.swift */,
 				3FBD7C97294F5860005A4484 /* Extension.swift */,
 				3FB251982947761100BF005D /* PropertyVisitedView.swift */,
+				3FE8080D296ED600001C5CDC /* PreSelectionView.swift */,
+				3FC4A53D297199C700C0E795 /* DishRatingListView.swift */,
 				3FB42F1A2940AC7A000DD169 /* Assets.xcassets */,
 				3FB42F1C2940AC7A000DD169 /* FoodieClientIOS.entitlements */,
 				3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */,
@@ -205,13 +217,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FC4A53E297199C700C0E795 /* DishRatingListView.swift in Sources */,
 				3FB42F192940AC79000DD169 /* ContentView.swift in Sources */,
+				3FE8080E296ED600001C5CDC /* PreSelectionView.swift in Sources */,
 				3FB42F262940D1E1000DD169 /* MainView.swift in Sources */,
 				3FB251992947761100BF005D /* PropertyVisitedView.swift in Sources */,
 				3FBD7C98294F5860005A4484 /* Extension.swift in Sources */,
 				3FB42F342940E7CB000DD169 /* QRScanView.swift in Sources */,
 				3FB42F172940AC79000DD169 /* FoodieClientIOSApp.swift in Sources */,
 				3FD8540F2941FAE900F7CC98 /* ClientVM.swift in Sources */,
+				3FC4A53C29717A9800C0E795 /* FakeVM.swift in Sources */,
+				3FE8080C296ED284001C5CDC /* DestinationPath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

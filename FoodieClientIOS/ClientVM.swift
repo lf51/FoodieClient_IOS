@@ -32,7 +32,8 @@ extension CloudDataStore:Codable {
         self.allMyProperties = try values.decode([PropertyModel].self, forKey: .allMyProperties)
         
         // 1.step
-        let privateMenu = try values.decode([MenuModel].self, forKey: .allMyMenu).filter({$0.isOnAir()})
+        let privateMenu = try values.decode([MenuModel].self, forKey: .allMyMenu)/*.filter({$0.isOnAir()}) 10.01.23 oscurato per Test. Da ripristinare */
+        self.allMyMenu = privateMenu
         let allRif_dish = privateMenu.flatMap({$0.rifDishIn})
     
         // 2.step
@@ -148,7 +149,7 @@ struct CloudDataCompiler {
 } // end Struct
 
 
-
+/*
 public final class ClientVM: MyProViewModelPack_L1 {
     
     public var allMyIngredients: [IngredientModel] = []
@@ -205,9 +206,13 @@ public final class ClientVM: MyProViewModelPack_L1 {
         compiler.compilaCloudDataFromFirebase { cloudData in
             
             self.checkInProperties.append(contentsOf: cloudData?.allMyProperties ?? [])
+            self.allMyDish.append(contentsOf: cloudData?.allMyDish ?? [])
+            self.allMyIngredients.append(contentsOf: cloudData?.allMyIngredients ?? [])
+            
             self.cloudData = cloudData // fa aggiornare una published
            
             self.salvareDataOnUserDefault(cloudData: cloudData)
+            print("is allMyDish empty:\(self.allMyDish.isEmpty.description)")
         }
         
         print("ClientVM/compilaCloudDataFromFirebase")
@@ -215,6 +220,110 @@ public final class ClientVM: MyProViewModelPack_L1 {
     }
     
     
+} */
+
+public final class ClientVM: FoodieViewModel {
+    
+  //  public var allMyIngredients: [IngredientModel] = []
+  //  public var allMyDish: [DishModel] = []
+  //  public var allMyMenu: [MenuModel] = []
+  //  public var allMyProperties: [PropertyModel] = []
+  //  public var allMyCategories: [CategoriaMenu] = []
+  //  public var allMyReviews: [DishRatingModel] = []
+    
+    // 12.12.22 Non usiamo direttamente gli array sopra ma usiamo un dataCloud. Dovremmo trasformare in tal senso anche Foodie Business. Step by Step
+    
+  //  @Published var cloudData: CloudDataStore?
+    var cloudDataCompiler:CloudDataCompiler?
+    
+   public var checkInProperties:[PropertyModel] = []
+    
+    @Published var preSelectionRif:[String] = [] // rif dei piatti selezionati
+    
+    init() {
+        super.init()
+        // 1. Caricare dati salvati sullo userDefault. Dati sintetici in stringa per ricostruire data del check-in, luogo, città, ed eventuale recensione. Costruire un dictionary
+        
+    }
+    
+    func salvareDataOnUserDefault(cloudData:CloudDataStore?) {
+        
+        // salva le proprietà visitate sullo userDefault, e anche l'elenco dei piatti ma per 48/72 ore
+        
+        guard let data = cloudData,
+              data.allMyProperties.count < 2
+        else {
+            print("CloudData equal to Nil or properties are more than one")
+            return }
+        
+        print("Scrivere Logica per salvare i dati su UserDefault")
+      //  let userDef = UserDefaults.standard
+        
+        
+        
+       // UserDefaults.standard.
+        
+        
+    }
+    
+    
+    func commpilaCloudDataFromUserDefault() {
+        
+        // Crea una istanza di CloudDataStore con i dati salvati localmente sul device
+       // UserDefaults.standard.dictionaryRepresentation()
+    }
+    
+    func compilaCloudDataFromFirebase() {
+        
+        guard let compiler = self.cloudDataCompiler else { return }
+        
+        compiler.compilaCloudDataFromFirebase { cloudData in
+            
+            self.checkInProperties.append(contentsOf: cloudData?.allMyProperties ?? [])
+            self.allMyDish.append(contentsOf: cloudData?.allMyDish ?? [])
+            self.allMyIngredients.append(contentsOf: cloudData?.allMyIngredients ?? [])
+            self.allMyReviews.append(contentsOf: cloudData?.allMyReviews ?? [])
+            
+            self.cloudData = cloudData // fa aggiornare una published
+           
+            self.salvareDataOnUserDefault(cloudData: cloudData)
+            print("is allMyDish empty:\(self.allMyDish.isEmpty.description)")
+        }
+        
+        print("ClientVM/compilaCloudDataFromFirebase")
+        
+    }
+    
+    /// <#Description#>
+    /// - Parameter rif: id del piatto
+    /// - Returns: <#description#>
+    func checkSelection(rif:String) -> Bool {
+        
+        let value = self.preSelectionRif.contains(rif)
+        print("[0] CheckSelection: Value is \(rif) -> Return is \(value.description)")
+        return value
+    }
+    
+    /// Metodo per aggiungere e riuovere i piatti selezionati. Messo nel viewmodel perchè condiviso da più view
+    /// - Parameter rif: id del piatto
+    func preSelectionLogic(rif:String) {
+        
+        var dishes = self.preSelectionRif
+        
+        if let index = dishes.firstIndex(of: rif) {
+            
+            dishes.remove(at: index)
+            
+        } else {
+            
+            dishes.append(rif)
+        }
+        
+        self.preSelectionRif = dishes
+                
+        print("[1] preSelectionLogic: Value is -> \(rif)")
+
+    }
 }
 
 extension ClientVM: VM_FPC {
@@ -268,3 +377,7 @@ extension ClientVM: VM_FPC {
     }
     
 }
+
+
+    
+

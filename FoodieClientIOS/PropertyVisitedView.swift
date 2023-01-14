@@ -23,14 +23,11 @@ struct PropertyVisitedView: View {
                
                 VStack {
                     
-                    if viewModel.checkInProperties.isEmpty {
+                    if self.viewModel.checkInProperties.isEmpty {
                         
                         
                         Text("Elenco Vuoto")
-                        
-                       
-                        
-                        
+     
                         
                     } else {
                         
@@ -59,6 +56,6 @@ struct PropertyVisitedView: View {
 
 struct PropertyVisitedView_Previews: PreviewProvider {
     static var previews: some View {
-        PropertyVisitedView(backgroundColorView: CatalogoColori.seaTurtle_1.color())
+        PropertyVisitedView(backgroundColorView: .seaTurtle_1)
     }
 }
