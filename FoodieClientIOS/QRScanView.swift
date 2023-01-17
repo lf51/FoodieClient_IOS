@@ -47,10 +47,11 @@ struct QRScanView:View {
                 filterView: { vbFilterView(container: container) },
                 sorterView: { vbSorterView() },
                 elementView: { dish in
-                    
                     vbContent(element: dish)
-                        .id(self.mostraVistaEspansa)
-       
+                        .id(self.mostraVistaEspansa) },
+                onRefreshAction: {
+                    
+                    scanReloadAction()
                 })
                 .popover(isPresented: $isShowingScanner,attachmentAnchor: .point(.leading),arrowEdge: .bottom, content: {
                     
@@ -213,6 +214,13 @@ struct QRScanView:View {
             
         }()
         
+        let cloudDataCreated:Bool = {
+           
+            self.viewModel.cloudDataCompiler != nil &&
+            self.viewModel.cloudData != nil
+            
+        }()
+        
         HStack(spacing:10) {
             
             CSButton_image(
@@ -227,26 +235,42 @@ struct QRScanView:View {
                     }
                 }
             
-            NavigationLink(value: DestinationPathView.preSelezionePiatti) {
+            if cloudDataCreated {
                 
-                HStack(alignment:.top,spacing: 0) {
+                NavigationLink(value: DestinationPathView.preSelezionePiatti) {
                     
-                    Image(systemName: "heart\(value.emptyString)")
+                    HStack(alignment:.top,spacing: 0) {
+                        
+                        Image(systemName: "heart\(value.emptyString)")
                             .imageScale(.large)
-                           
-                    Text("\(preSelection.count,format: .number)")
-                        .font(.system(.caption, design: .monospaced, weight: .semibold))
-        
-                }
-                .foregroundColor(value.color)
-            }.disabled(value.disableLink)
-            
-            csScanReload()
-            
+                        
+                        Text("\(preSelection.count,format: .number)")
+                            .font(.system(.caption, design: .monospaced, weight: .semibold))
+                        
+                    }
+                    .foregroundColor(value.color)
+                }.disabled(value.disableLink)
+               
+                
+            } else {
+                
+                CSButton_image(
+                    frontImage: "camera.fill",
+                    imageScale: .large,
+                    frontColor: .seaTurtle_1) {
+                            
+                            self.isShowingScanner.toggle()
+
+                        }.disabled(self.isShowingScanner)
+                
+               
+            }
+  
         }
     }
     
-     private func csScanReload() -> some View {
+    
+    private func scanReloadAction() {
         
         let cloudDataCreated:Bool = {
            
@@ -254,35 +278,15 @@ struct QRScanView:View {
             self.viewModel.cloudData != nil
             
         }()
-            
-        let frontColor:Color = .seaTurtle_1
-        let backColor:Color = .seaTurtle_3
- 
-         return CSButton_image(
-                activationBool: cloudDataCreated,
-                frontImage: "arrow.clockwise.icloud.fill",
-                backImage: "camera.fill",
-                imageScale: .large,
-                backColor: backColor,
-                frontColor: frontColor) {
-                    
-                    scanReloadAction(dataIn: cloudDataCreated)
-
-                }.disabled(self.isShowingScanner)
-    }
-    
-   private func scanReloadAction(dataIn:Bool) {
         
-        if dataIn {
-            
-            self.viewModel.compilaCloudDataFromFirebase()
-            
-        } else {
+        guard cloudDataCreated else {
             
             self.isShowingScanner.toggle()
-            
+            return
         }
-        
+
+            self.viewModel.compilaCloudDataFromFirebase()
+    
     }
     
    private func handleScan(result:Result<ScanResult,ScanError>) {

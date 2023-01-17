@@ -287,6 +287,7 @@ public final class ClientVM: FoodieViewModel {
             self.cloudData = cloudData // fa aggiornare una published
            
             self.salvareDataOnUserDefault(cloudData: cloudData)
+           
             print("is allMyDish empty:\(self.allMyDish.isEmpty.description)")
         }
         
