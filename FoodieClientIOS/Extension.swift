@@ -15,30 +15,100 @@ extension DishModel:Object_FPC {
     
     public static func sortModelInstance(lhs: DishModel, rhs: DishModel, condition: SortCondition?, readOnlyVM: ClientVM) -> Bool {
         
-       return true
+        switch condition {
+        
+        case .mostRated:
+            return lhs.rifReviews.count > rhs.rifReviews.count
+        case .topRated:
+            return lhs.topRatedValue(readOnlyVM: readOnlyVM) >
+            rhs.topRatedValue(readOnlyVM: readOnlyVM)
+        case .topPriced:
+            return lhs.estrapolaPrezzoMandatoryMaggiore() >
+            rhs.estrapolaPrezzoMandatoryMaggiore()
+        default:
+            return lhs.intestazione < rhs.intestazione
+
+        }
     }
     
     public func stringResearch(string: String, readOnlyVM: ClientVM?) -> Bool {
         
-        guard string != "" else { return true }
-        
+       // guard string != "" else { return true }
+        // First - Name
         let ricerca = string.replacingOccurrences(of: " ", with: "").lowercased()
         let conditionOne = self.intestazione.lowercased().contains(ricerca)
         
-        return conditionOne
+        guard readOnlyVM != nil else { return conditionOne }
+        // Second - Ingredients
+        let allIngredients = self.allIngredientsAttivi(viewModel: readOnlyVM!)
+        let allINGMapped = allIngredients.map({$0.intestazione.lowercased()})
+        let allINGChecked = allINGMapped.filter({$0.contains(ricerca)})
+        let conditionTwo = !allINGChecked.isEmpty
+        //Third - Allergens
+        let allINGbyAllergens = allIngredients.map({$0.allergeni}).joined()
+        let allAllergens = allINGbyAllergens.map({$0.intestazione.lowercased()})
+        let allergensChecked = allAllergens.filter({$0.contains(ricerca)})
+        let conditionThird = !allergensChecked.isEmpty
+        
+        return conditionOne || conditionTwo || conditionThird
     }
     
    public func propertyCompare(coreFilter: CoreFilter<DishModel>, readOnlyVM: ClientVM) -> Bool {
-        
+
         let filterProperties = coreFilter.filterProperties
+       
         let allRIFCategories = filterProperties.categorieMenu?.map({$0.id})
-        
-        return self.stringResearch(string: coreFilter.stringaRicerca, readOnlyVM: readOnlyVM) &&
+        let allAllergeniIn = self.calcolaAllergeniNelPiatto(viewModel: readOnlyVM)
+        let allDietAvaible = self.returnDietAvaible(viewModel: readOnlyVM).inDishTipologia
+        let basePreparazione = self.calcolaBaseDellaPreparazione(readOnlyVM: readOnlyVM)
        
-         coreFilter.comparePropertyToCollection(localProperty: self.percorsoProdotto, filterCollection: filterProperties.percorsoPRP) &&
+       let stringResult:Bool = {
+           
+           let stringa = coreFilter.stringaRicerca
+           guard stringa != "" else { return true }
+           
+           let result = self.stringResearch(string: coreFilter.stringaRicerca, readOnlyVM: readOnlyVM)
+           return coreFilter.tipologiaFiltro.normalizeBoolValue(value: result)
+           
+       }()
        
-         coreFilter.compareRifToCollectionRif(localPropertyRif: self.categoriaMenu, filterCollection: allRIFCategories)
+       let buildResult:Bool = {
+           
+           stringResult
+           &&
+           coreFilter.comparePropertyToCollection(
+            localProperty: self.percorsoProdotto,
+            filterCollection: filterProperties.percorsoPRP)
+           &&
+           coreFilter.compareRifToCollectionRif(
+            localPropertyRif: self.categoriaMenu,
+            filterCollection: allRIFCategories)
+           &&
+           coreFilter.compareCollectionToCollection(
+            localCollection: allAllergeniIn,
+            filterCollection: filterProperties.allergeniIn)
+           &&
+           coreFilter.compareCollectionToCollection(
+            localCollection: allDietAvaible,
+            filterCollection: filterProperties.dietePRP)
+           &&
+           coreFilter.comparePropertyToProperty(
+            localProperty: basePreparazione,
+            filterProperty: filterProperties.basePRP)
+           &&
+           self.preCallHasAllIngredientSameQuality(
+            viewModel: readOnlyVM,
+            kpQuality: \.produzione,
+            quality: filterProperties.produzioneING)
+           &&
+           self.preCallHasAllIngredientSameQuality(
+            viewModel: readOnlyVM,
+            kpQuality: \.provenienza,
+            quality: filterProperties.provenienzaING)
+       }()
         
+       return buildResult
+       
     }
     
     
@@ -53,6 +123,9 @@ extension DishModel:Object_FPC {
        var categorieMenu:[CategoriaMenu]?
        var basePRP:DishModel.BasePreparazione?
        var dietePRP:[TipoDieta]?
+       var produzioneING:ProduzioneIngrediente?
+       var provenienzaING: ProvenienzaIngrediente?
+       var allergeniIn:[AllergeniIngrediente]?
        
        public init() {
         //   self.coreFilter = CoreFilter()
@@ -64,16 +137,31 @@ extension DishModel:Object_FPC {
             
             countManageSingle_FPC(
                 newValue: new.basePRP,
-                oldValue: old.basePRP) +
+                oldValue: old.basePRP)
+            +
             countManageCollection_FPC(
                 newValue: new.percorsoPRP,
-                oldValue: old.percorsoPRP) +
+                oldValue: old.percorsoPRP)
+            +
             countManageCollection_FPC(
                 newValue: new.categorieMenu,
-                oldValue: old.categorieMenu) +
+                oldValue: old.categorieMenu)
+            +
             countManageCollection_FPC(
                 newValue: new.dietePRP,
                 oldValue: old.dietePRP)
+            +
+            countManageSingle_FPC(
+                newValue: new.produzioneING,
+                oldValue: old.produzioneING)
+            +
+            countManageSingle_FPC(
+                newValue: new.provenienzaING,
+                oldValue: old.provenienzaING)
+            +
+            countManageCollection_FPC(
+                newValue: new.allergeniIn,
+                oldValue: old.allergeniIn)
         }
 
    }
@@ -126,4 +214,10 @@ extension DishModel.BasePreparazione:Property_FPC {}
 extension CategoriaMenu:Property_FPC_Mappable {}
 
 extension TipoDieta:Property_FPC {}
+
+extension ProduzioneIngrediente:Property_FPC {}
+
+extension ProvenienzaIngrediente:Property_FPC {}
+
+extension AllergeniIngrediente:Property_FPC {}
 

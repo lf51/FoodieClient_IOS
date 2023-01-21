@@ -39,6 +39,7 @@ struct QRScanView:View {
                 title: "Menu",
                 filterCore: $filterCore,
                 placeHolderBarraRicerca: "Ricerca piatto, ingrediente, allergene",
+                paddingHorizontal: 10,
                 buttonColor: .seaTurtle_3,
                 elementContainer: container,
                 mapTree: mapTree,
@@ -162,7 +163,9 @@ struct QRScanView:View {
             selectionColor: Color.brown,
             imageOrEmoji: "leaf",
             label: "Preparazione a base di") { value in
-              0//  container.filter({ })
+                container.filter({
+                    $0.calcolaBaseDellaPreparazione(readOnlyVM: self.viewModel) == value
+                }).count
             }
         
         MyFilterRow(
@@ -172,10 +175,43 @@ struct QRScanView:View {
             selectionColor: Color.orange.opacity(0.6),
             imageOrEmoji: "person.fill.checkmark",
             label: "Adatto alla dieta") { value in
-               1//container.filter({})
+                container.filter({
+                    $0.returnDietAvaible(viewModel: self.viewModel).inDishTipologia.contains(value)
+                }).count
+            }
+        
+        MyFilterRow(
+            allCases: ProduzioneIngrediente.allCases,
+            filterProperty: $filterCore.filterProperties.produzioneING,
+            selectionColor: Color.blue,
+            imageOrEmoji: "checkmark.shield",
+            label: "Qualità") { value in
+                container.filter({
+                    $0.hasAllIngredientSameQuality(viewModel: self.viewModel, kpQuality: \.produzione, quality: value)
+                }).count
+            }
+        
+        MyFilterRow(
+            allCases: ProvenienzaIngrediente.allCases,
+            filterProperty: $filterCore.filterProperties.provenienzaING,
+            selectionColor: Color.blue,
+            imageOrEmoji: nil) { value in
+                container.filter({
+                    $0.hasAllIngredientSameQuality(viewModel: self.viewModel, kpQuality: \.provenienza, quality: value)
+                }).count
             }
         
         
+        MyFilterRow(
+            allCases: AllergeniIngrediente.allCases,
+            filterCollection: $filterCore.filterProperties.allergeniIn,
+            selectionColor: Color.red.opacity(0.7),
+            imageOrEmoji: "allergens",
+            label: "Allergeni Contenuti") { value in
+                container.filter({
+                    $0.calcolaAllergeniNelPiatto(viewModel: self.viewModel).contains(value)
+                }).count
+            }
         
     }
     

@@ -12,7 +12,6 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import MyFilterPackage
 
-
 extension CloudDataStore:Codable {
     
     public enum SubSetupKeys:String,CodingKey {
@@ -100,15 +99,19 @@ struct CloudDataCompiler {
     
     func compilaCloudDataFromFirebase(handle: @escaping (_ :CloudDataStore?) -> () ) {
         
-      
+      //Gli errori sembrerebbero essere dovuti ad un update mancante, o forse alle versioni deployed. Il codice è copiato dalla documentazione firebase, a parte il guard. E' un errore del compilatore che comunque non influisce sul funzionamento.
       //  ref_userDocument.d
-        
+        guard let docRef = ref_userDocument else {
+            handle(nil)
+            return
+        }
      
-        ref_userDocument?.getDocument(as:CloudDataStore.self) { result in
-            
+        docRef.getDocument(as: CloudDataStore.self) { (result) in
+        
             switch result {
-            case .success(let success):
-                handle(success)
+                
+            case .success(let cloudData):
+                handle(cloudData)
                 print("CloudDataStore caricato con successo da Firebase")
             case .failure(let error):
                 handle(nil)
@@ -283,6 +286,7 @@ public final class ClientVM: FoodieViewModel {
             self.allMyDish.append(contentsOf: cloudData?.allMyDish ?? [])
             self.allMyIngredients.append(contentsOf: cloudData?.allMyIngredients ?? [])
             self.allMyReviews.append(contentsOf: cloudData?.allMyReviews ?? [])
+            self.allMyCategories.append(contentsOf: cloudData?.allMyCategories ?? [])
             
             self.cloudData = cloudData // fa aggiornare una published
            
