@@ -43,7 +43,7 @@ struct QRScanView:View {
                 buttonColor: .seaTurtle_3,
                 elementContainer: container,
                 mapTree: mapTree,
-                thirdButtonAction: { self.openFilter.toggle() },
+                thirdButtonAction: { thirdButtonAction() },
                 trailingView: { vbTrailingBar() },
                 filterView: { vbFilterView(container: container) },
                 sorterView: { vbSorterView() },
@@ -81,7 +81,20 @@ struct QRScanView:View {
     }
     
     // Method
-    
+    private func thirdButtonAction() {
+        
+        if mapTree == nil {
+            
+            self.mapTree = MapTree(
+                mapProperties: self.viewModel.allMyCategories,
+                kpPropertyInObject: \DishModel.categoriaMenu,
+                labelColor: .seaTurtle_3)
+            
+        } else {
+            
+            self.mapTree = nil
+        }
+    }
     
     @ViewBuilder private func vbContent(element:DishModel) -> some View {
         
