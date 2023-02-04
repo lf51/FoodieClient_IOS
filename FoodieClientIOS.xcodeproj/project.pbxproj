@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F7E7900298A84470053EC17 /* RateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7E78FF298A84470053EC17 /* RateModel.swift */; };
 		3F7FAA16294B65F2000C4739 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3F7FAA15294B65F2000C4739 /* FirebaseFirestoreSwift */; };
+		3FA516A42982850E00F913D8 /* TESTRatingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA516A32982850E00F913D8 /* TESTRatingRow.swift */; };
 		3FA887342951B98A0094058A /* MyFilterPackage in Resources */ = {isa = PBXBuildFile; fileRef = 3FA887332951B98A0094058A /* MyFilterPackage */; };
 		3FA887362951BA550094058A /* MyFilterPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 3FA887352951BA550094058A /* MyFilterPackage */; };
 		3FB251972947737C00BF005D /* MyFoodiePackage in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB251962947737C00BF005D /* MyFoodiePackage */; };
@@ -19,7 +21,9 @@
 		3FB42F262940D1E1000DD169 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F252940D1E1000DD169 /* MainView.swift */; };
 		3FB42F322940E698000DD169 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB42F312940E698000DD169 /* CodeScanner */; };
 		3FB42F342940E7CB000DD169 /* QRScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB42F332940E7CB000DD169 /* QRScanView.swift */; };
+		3FBAD5C02987D58A00D2C8AC /* ModuloRecensione.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBAD5BF2987D58A00D2C8AC /* ModuloRecensione.swift */; };
 		3FBD7C98294F5860005A4484 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBD7C97294F5860005A4484 /* Extension.swift */; };
+		3FBEACB4298D24AF001882C0 /* CSPickerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBEACB3298D24AF001882C0 /* CSPickerImage.swift */; };
 		3FC4A53C29717A9800C0E795 /* FakeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC4A53B29717A9800C0E795 /* FakeVM.swift */; };
 		3FC4A53E297199C700C0E795 /* DishRatingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC4A53D297199C700C0E795 /* DishRatingListView.swift */; };
 		3FC96158295EF8FB00D0E01A /* MyPackView_L0 in Frameworks */ = {isa = PBXBuildFile; productRef = 3FC96157295EF8FB00D0E01A /* MyPackView_L0 */; };
@@ -34,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F7E78FF298A84470053EC17 /* RateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateModel.swift; sourceTree = "<group>"; };
+		3FA516A32982850E00F913D8 /* TESTRatingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TESTRatingRow.swift; sourceTree = "<group>"; };
 		3FA887332951B98A0094058A /* MyFilterPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MyFilterPackage; path = "../../[A]BackEnd/MyFilterPackage"; sourceTree = "<group>"; };
 		3FB251982947761100BF005D /* PropertyVisitedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyVisitedView.swift; sourceTree = "<group>"; };
 		3FB42F132940AC79000DD169 /* FoodieClientIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodieClientIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,7 +50,9 @@
 		3FB42F1E2940AC7A000DD169 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3FB42F252940D1E1000DD169 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		3FB42F332940E7CB000DD169 /* QRScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScanView.swift; sourceTree = "<group>"; };
+		3FBAD5BF2987D58A00D2C8AC /* ModuloRecensione.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuloRecensione.swift; sourceTree = "<group>"; };
 		3FBD7C97294F5860005A4484 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		3FBEACB3298D24AF001882C0 /* CSPickerImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSPickerImage.swift; sourceTree = "<group>"; };
 		3FC4A53B29717A9800C0E795 /* FakeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeVM.swift; sourceTree = "<group>"; };
 		3FC4A53D297199C700C0E795 /* DishRatingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishRatingListView.swift; sourceTree = "<group>"; };
 		3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -112,10 +120,14 @@
 				3FB251982947761100BF005D /* PropertyVisitedView.swift */,
 				3FE8080D296ED600001C5CDC /* PreSelectionView.swift */,
 				3FC4A53D297199C700C0E795 /* DishRatingListView.swift */,
+				3FBAD5BF2987D58A00D2C8AC /* ModuloRecensione.swift */,
+				3FBEACB3298D24AF001882C0 /* CSPickerImage.swift */,
+				3FA516A32982850E00F913D8 /* TESTRatingRow.swift */,
 				3FB42F1A2940AC7A000DD169 /* Assets.xcassets */,
 				3FB42F1C2940AC7A000DD169 /* FoodieClientIOS.entitlements */,
 				3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */,
 				3FB42F1D2940AC7A000DD169 /* Preview Content */,
+				3F7E78FF298A84470053EC17 /* RateModel.swift */,
 			);
 			path = FoodieClientIOS;
 			sourceTree = "<group>";
@@ -221,6 +233,8 @@
 				3FB42F192940AC79000DD169 /* ContentView.swift in Sources */,
 				3FE8080E296ED600001C5CDC /* PreSelectionView.swift in Sources */,
 				3FB42F262940D1E1000DD169 /* MainView.swift in Sources */,
+				3FBAD5C02987D58A00D2C8AC /* ModuloRecensione.swift in Sources */,
+				3F7E7900298A84470053EC17 /* RateModel.swift in Sources */,
 				3FB251992947761100BF005D /* PropertyVisitedView.swift in Sources */,
 				3FBD7C98294F5860005A4484 /* Extension.swift in Sources */,
 				3FB42F342940E7CB000DD169 /* QRScanView.swift in Sources */,
@@ -228,6 +242,8 @@
 				3FD8540F2941FAE900F7CC98 /* ClientVM.swift in Sources */,
 				3FC4A53C29717A9800C0E795 /* FakeVM.swift in Sources */,
 				3FE8080C296ED284001C5CDC /* DestinationPath.swift in Sources */,
+				3FA516A42982850E00F913D8 /* TESTRatingRow.swift in Sources */,
+				3FBEACB4298D24AF001882C0 /* CSPickerImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +366,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FoodieClientIOS/FoodieClientIOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodieClientIOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HR732K89Z;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -389,7 +405,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FoodieClientIOS/FoodieClientIOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"FoodieClientIOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 2HR732K89Z;
 				ENABLE_HARDENED_RUNTIME = YES;

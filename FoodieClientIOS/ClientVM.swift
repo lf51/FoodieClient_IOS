@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import MyFoodiePackage
 import Firebase
 import FirebaseFirestore
@@ -242,6 +243,7 @@ public final class ClientVM: FoodieViewModel {
    public var checkInProperties:[PropertyModel] = []
     
     @Published var preSelectionRif:[String] = [] // rif dei piatti selezionati
+    @Published var menuPath = NavigationPath()
     
     init() {
         super.init()
@@ -370,8 +372,25 @@ extension ClientVM: VM_FPC {
     public func ricercaFiltra<M:Object_FPC>(
         containerPath: WritableKeyPath<ClientVM, [M]>,
         coreFilter: CoreFilter<M>) -> [M] where ClientVM == M.VM {
-        
-            let container = self[keyPath: containerPath]
+            
+            // Step_0 Vediamo se ci sono piatti Preferiti
+
+            let container:[M] = {
+                // Nota 24.01.23 CoreFilter<DishModel>
+                guard let filterCore = coreFilter as? CoreFilter<DishModel>,
+                      filterCore.filterProperties.showFavourites else {
+                    
+                    return self[keyPath: containerPath]
+                }
+                
+                let favourites:[M] = self.modelCollectionFromCollectionID(collectionId: self.preSelectionRif, modelPath: \.allMyDish) as? [M] ?? []
+              
+                return favourites
+                
+            }()
+            
+            
+           // let container = self[keyPath: containerPath]
             
             let containerFiltered = container.filter({ $0.propertyCompare(coreFilter: coreFilter, readOnlyVM: self) })
             

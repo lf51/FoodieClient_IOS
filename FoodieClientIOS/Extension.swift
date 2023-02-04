@@ -126,6 +126,8 @@ extension DishModel:Object_FPC {
        var produzioneING:ProduzioneIngrediente?
        var provenienzaING: ProvenienzaIngrediente?
        var allergeniIn:[AllergeniIngrediente]?
+        
+       var showFavourites:Bool = false 
        
        public init() {
         //   self.coreFilter = CoreFilter()

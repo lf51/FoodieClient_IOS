@@ -17,22 +17,33 @@ struct QRScanView:View {
     let backgroundColorView:Color
     
    // @State private var filterProperties:DishModel.FilterProperty = DishModel.FilterProperty()
-    @State private var mapTree:MapTree<DishModel,CategoriaMenu>?
+  //  @State private var mapTree:MapTree<DishModel,CategoriaMenu>?
     @State private var filterCore:CoreFilter<DishModel> = CoreFilter()
-    @State private var openFilter:Bool = false
-    @State private var openSort:Bool = false
+   // @State private var openFilter:Bool = false
+   // @State private var openSort:Bool = false
     @State private var mostraVistaEspansa:Bool = true
     
     @State private var isShowingScanner:Bool = true
     @State private var currentDishForRatingList:DishModel?
    // @State private var preSelection:[DishModel] = []
    // @State private var subTotalPrice:Double = 10.5 // 10.01.23 somma i prezzi. Valutare se incorporarlo nella preSelection creando un dizionario
-    
+        
     var body: some View {
         
-        NavigationStack {
+        NavigationStack(path: self.$viewModel.menuPath) {
             
             let container:[DishModel] = self.viewModel.ricercaFiltra(containerPath: \.allMyDish, coreFilter: filterCore)
+            let cloudDataCreated:Bool = {
+                
+                 self.viewModel.cloudDataCompiler != nil &&
+                 self.viewModel.cloudData != nil
+                 
+             }()
+            
+            let mapTree = MapTree(
+                mapProperties: self.viewModel.allMyCategories,
+                kpPropertyInObject: \DishModel.categoriaMenu,
+                labelColor: .seaTurtle_2)
           
                 FiltrableContainerView(
                 backgroundColorView: .seaTurtle_1,
@@ -42,16 +53,17 @@ struct QRScanView:View {
                 paddingHorizontal: 10,
                 buttonColor: .seaTurtle_3,
                 elementContainer: container,
-                mapTree: mapTree,
-                thirdButtonAction: { thirdButtonAction() },
-                trailingView: { vbTrailingBar() },
+                mapTree: mapTree, // NOTA 24.01 MAPTREE
+                generalDisable: !cloudDataCreated,
+               // mapButtonAction: { thirdButtonAction() },
+                //mapButtonAction: nil,
+                trailingView: { vbTrailingBar(cloudDataCreated) },
                 filterView: { vbFilterView(container: container) },
                 sorterView: { vbSorterView() },
                 elementView: { dish in
                     vbContent(element: dish)
                         .id(self.mostraVistaEspansa) },
                 onRefreshAction: {
-                    
                     scanReloadAction()
                 })
                 .popover(isPresented: $isShowingScanner,attachmentAnchor: .point(.leading),arrowEdge: .bottom, content: {
@@ -67,34 +79,35 @@ struct QRScanView:View {
                      dishItem: dish,
                      backgroundColorView: backgroundColorView,
                      readOnlyViewModel: self.viewModel)
-                    .presentationDetents([.height(650)])
+                    //.presentationDetents([.height(675)])
+                    .presentationDetents([.large])
                     
                 })
                 .navigationDestination(for: DestinationPathView.self) { destination in
                     destination.destinationAdress(
                         backgroundColorView: backgroundColorView,
                         readOnlyViewModel: viewModel)
-                }
+                } // 25.01.23 Deprecato in futuro
  
         }// chiusa NavStack
         
     }
     
     // Method
-    private func thirdButtonAction() {
+    /* private func thirdButtonAction() {
         
-        if mapTree == nil {
+       /* if mapTree == nil {
             
             self.mapTree = MapTree(
                 mapProperties: self.viewModel.allMyCategories,
                 kpPropertyInObject: \DishModel.categoriaMenu,
-                labelColor: .seaTurtle_3)
+                labelColor: .seaTurtle_2)
             
         } else {
             
             self.mapTree = nil
-        }
-    }
+        } */
+    } */
     
     @ViewBuilder private func vbContent(element:DishModel) -> some View {
         
@@ -114,7 +127,9 @@ struct QRScanView:View {
                 
             } reviewButton: {
                 
-                self.currentDishForRatingList = element
+              //  self.currentDishForRatingList = element // 03.02.23 da ripristinare e trovare collocazione codice seguente messo qui in PROVA
+                self.viewModel.menuPath.append(DestinationPathView.moduloNuovaRecensione(element))
+               
             }
 
     }
@@ -249,26 +264,37 @@ struct QRScanView:View {
         
     }
     
-    @ViewBuilder private func vbTrailingBar() -> some View {
+    @ViewBuilder private func vbTrailingBar(_ cloudDataCreated:Bool) -> some View {
         
         let preSelection = self.viewModel.preSelectionRif
+        let selectionIsEmpty = preSelection.isEmpty
         
         let value:(emptyString:String,color:Color,disableLink:Bool) = {
            
-            if preSelection.isEmpty {
+            if filterCore.filterProperties.showFavourites {
+                
+                return (".fill",.seaTurtle_3,false)
+                
+            } else {
+                let color:Color = selectionIsEmpty ? .seaTurtle_1 : .seaTurtle_3
+                return ("",color,selectionIsEmpty)
+                
+            }
+            
+           /* if preSelection.isEmpty {
                 return ("",.seaTurtle_1,true)
             } else {
                 return (".fill",.seaTurtle_3,false)
-            }
+            } */
             
         }()
         
-        let cloudDataCreated:Bool = {
+      /*  let cloudDataCreated:Bool = {
            
             self.viewModel.cloudDataCompiler != nil &&
             self.viewModel.cloudData != nil
             
-        }()
+        }() */
         
         HStack(spacing:10) {
             
@@ -283,11 +309,16 @@ struct QRScanView:View {
                         self.mostraVistaEspansa.toggle()
                     }
                 }
+                .opacity(cloudDataCreated ? 1.0 : 0.6)
+                .disabled(!cloudDataCreated)
             
             if cloudDataCreated {
                 
-                NavigationLink(value: DestinationPathView.preSelezionePiatti) {
-                    
+                Button {
+                    withAnimation(.easeIn(duration: 0.5)) {
+                        self.filterCore.filterProperties.showFavourites.toggle()
+                    }
+                } label: {
                     HStack(alignment:.top,spacing: 0) {
                         
                         Image(systemName: "heart\(value.emptyString)")
@@ -299,6 +330,21 @@ struct QRScanView:View {
                     }
                     .foregroundColor(value.color)
                 }.disabled(value.disableLink)
+
+                
+               /* NavigationLink(value: DestinationPathView.preSelezionePiatti) {
+                    
+                    HStack(alignment:.top,spacing: 0) {
+                        
+                        Image(systemName: "heart\(value.emptyString)")
+                            .imageScale(.large)
+                        
+                        Text("\(preSelection.count,format: .number)")
+                            .font(.system(.caption, design: .monospaced, weight: .semibold))
+                        
+                    }
+                    .foregroundColor(value.color)
+                }.disabled(value.disableLink) */
                
                 
             } else {
