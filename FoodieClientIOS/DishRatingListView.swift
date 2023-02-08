@@ -10,24 +10,36 @@ import MyPackView_L0
 import MyFoodiePackage
 import MyFilterPackage
 
+/*
 
 struct DishRatingListView: View {
+    
+  //  @ObservedObject var viewModel:FoodieViewModel
     
     let dishTitle: String
     let backgroundColorView: Color
     
     private let dishRating: [DishRatingModel]
+    
     private let ratingsCount: Int
     private let mediaRating: Double
+    private let mediaL10: Double
 
     @State private var minMaxRange: (Double,Double) = (0.0,10.0)
     
     init(dishItem:DishModel, backgroundColorView: Color, readOnlyViewModel:FoodieViewModel) {
         
+      //  self.viewModel = readOnlyViewModel
+        
         self.dishTitle = dishItem.intestazione
-
-        (self.mediaRating,self.ratingsCount,self.dishRating) = dishItem.ratingInfo(readOnlyViewModel: readOnlyViewModel)
         self.backgroundColorView = backgroundColorView
+        
+        let(model,rif) = readOnlyViewModel.reviewFilteredByDish(idPiatto: dishItem.id)
+        self.dishRating = model
+        
+        (self.ratingsCount,_,self.mediaRating,self.mediaL10) = readOnlyViewModel.monitorRecensioni(rifReview: rif)
+        
+        
     }
     
   //  @State var opac:CGFloat = 1.0
@@ -49,9 +61,10 @@ struct DishRatingListView: View {
                     
                    Spacer()
                     
-                    vbRatingvote()
-                    
-                    
+                  
+                        
+                        vbRatingvote()
+                        
                 }
                 .background {
                   //  Color.green
@@ -97,6 +110,11 @@ struct DishRatingListView: View {
             
                 
         }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Text("+ Add")
+                }
+            }
             
     }
     
@@ -117,11 +135,15 @@ struct DishRatingListView: View {
                 
                 VStack(spacing:-5) {
                     
-                    Text("L10")
-                        .font(.system(.subheadline, design: .monospaced, weight: .semibold))
-                        .foregroundColor(.seaTurtle_2)
+                    HStack(spacing:0) {
+                        Text("L10")
+                            .font(.system(.subheadline, design: .monospaced, weight: .semibold))
+                            .foregroundColor(.seaTurtle_2)
+                        
+                        vbMediaL10(mediaGen: mediaRating, mediaL10: mediaL10)
+                    }
                     
-                    Text("\(mediaRating,specifier: "%.1f")")
+                    Text("\(mediaL10,specifier: "%.1f")")
                         .fontWeight(.heavy)
                         .font(.title)
                         .foregroundColor(.seaTurtle_4)
@@ -132,6 +154,7 @@ struct DishRatingListView: View {
                         
                     }
             }
+        
         .background{
           //  Color.gray
             
@@ -235,7 +258,9 @@ struct DishRating_RowView_Previews: PreviewProvider {
     
     static var previews: some View {
         
-        DishRatingListView(dishItem: dishItem3_Test, backgroundColorView: .seaTurtle_1, readOnlyViewModel: testAccount)
+        NavigationStack {
+            DishRatingListView(dishItem: dishItem3_Test, backgroundColorView: .seaTurtle_1, readOnlyViewModel: testAccount)
+        }
         
       /* CSZStackVB(
             title: "TestDish",
@@ -296,9 +321,9 @@ struct DishRating_RowView_Previews: PreviewProvider {
     }
 }
 
+*/ // 08.02.23 Ricollocata in MyFoodiePackage
 
-
-
+/*
 
 struct DishRating_RowView: View {
     
@@ -521,7 +546,8 @@ struct DishRating_RowView: View {
         
 */
     }
-}
+} */
+//08.02.23 Ricollocata in MyFoodiePackage
 /*
 struct DishRating_RowView: View {
     

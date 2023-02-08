@@ -127,8 +127,8 @@ struct QRScanView:View {
                 
             } reviewButton: {
                 
-              //  self.currentDishForRatingList = element // 03.02.23 da ripristinare e trovare collocazione codice seguente messo qui in PROVA
-                self.viewModel.menuPath.append(DestinationPathView.moduloNuovaRecensione(element))
+                self.currentDishForRatingList = element // 03.02.23 da ripristinare e trovare collocazione codice seguente messo qui in PROVA
+              /*  self.viewModel.menuPath.append(DestinationPathView.moduloNuovaRecensione(element)) */
                
             }
 

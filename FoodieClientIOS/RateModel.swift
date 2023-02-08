@@ -9,8 +9,12 @@ import Foundation
 import MyFoodiePackage
 import SwiftUI
 
+/*
 public struct ReviewModel {
     // Da spostare nel FoodiePackage per sostituire il vecchio DishRatingModel
+    
+    static public let minLenghtComment:Int = 70
+    
     public var id: String
     public let rifPiatto: String
     
@@ -74,7 +78,7 @@ public struct ReviewModel {
             
             let countChar = commento.replacingOccurrences(of: " ", with: "").count
             
-            if countChar < 70 { completingRate += 0.2 }
+            if countChar < Self.minLenghtComment { completingRate += 0.2 }
             else { completingRate += 0.3 }
             
           /*  else if countChar > 70,
@@ -95,82 +99,83 @@ public struct ReviewModel {
     }
     
     
-    
-    
-}
+    public struct RateModel {
+        // da sistemare in chiave salvataggio su firebase. Non serve salvare i pesi che sono praticamente due set(uno per food, uno per drink) uguali per tutte le recensioni
+        public var presentazione:Double
+        public var cottura:Double
+        public var mpQuality:Double
+        public var succulenza:Double
+        public var gusto:Double
 
-public struct RateModel {
-    // da sistemare in chiave salvataggio su firebase. Non serve salvare i pesi che sono praticamente due set(uno per food, uno per drink) uguali per tutte le recensioni
-    public var presentazione:Double
-    public var cottura:Double
-    public var mpQuality:Double
-    public var succulenza:Double
-    public var gusto:Double
-
-    let pesoPresentazione:Double
-    let pesoCottura:Double
-    let pesoMpQuality:Double
-    let pesoSucculenza:Double
-    let pesoGusto:Double
-    
-    var sommaPesi:Double {
-        pesoPresentazione +
-        pesoCottura +
-        pesoMpQuality +
-        pesoSucculenza +
-        pesoGusto
-    } // la vogliamo sempre uguale a 10
+        let pesoPresentazione:Double
+        let pesoCottura:Double
+        let pesoMpQuality:Double
+        let pesoSucculenza:Double
+        let pesoGusto:Double
         
-    public var generale:Double {
-        
-        get {
+        var sommaPesi:Double {
+            pesoPresentazione +
+            pesoCottura +
+            pesoMpQuality +
+            pesoSucculenza +
+            pesoGusto
+        } // la vogliamo sempre uguale a 10
             
-           ((presentazione * pesoPresentazione) +
-            (cottura * pesoCottura) +
-            (mpQuality * pesoMpQuality) +
-            (succulenza * pesoSucculenza) +
-            (gusto * pesoGusto)) / sommaPesi
+        public var generale:Double {
+            
+            get {
+                
+               ((presentazione * pesoPresentazione) +
+                (cottura * pesoCottura) +
+                (mpQuality * pesoMpQuality) +
+                (succulenza * pesoSucculenza) +
+                (gusto * pesoGusto)) / sommaPesi
+                
+            }
+            
+            set {
+                
+                presentazione = newValue
+                cottura = newValue
+                mpQuality = newValue
+                succulenza = newValue
+                gusto = newValue
+            }
+        }
+        
+        public init(percorsoProdotto:DishModel.PercorsoProdotto) {
+            
+            switch percorsoProdotto {
+
+            case .preparazioneFood:
+                
+                pesoPresentazione = 1
+                pesoCottura = 1
+                pesoMpQuality = 3
+                pesoSucculenza = 2.5
+                pesoGusto = 2.5
+                
+            default:
+                
+                pesoPresentazione = 1.5
+                pesoCottura = 0.0
+                pesoMpQuality = 3.0
+                pesoSucculenza = 2.75
+                pesoGusto = 2.75
+            }
+            
+            self.presentazione = 10.0
+            self.cottura = 10.0
+            self.mpQuality = 10.0
+            self.succulenza = 10.0
+            self.gusto = 10.0
             
         }
         
-        set {
-            
-            presentazione = newValue
-            cottura = newValue
-            mpQuality = newValue
-            succulenza = newValue
-            gusto = newValue
-        }
+       
     }
     
-    public init(percorsoProdotto:DishModel.PercorsoProdotto) {
-        
-        switch percorsoProdotto {
-
-        case .preparazioneFood:
-            
-            pesoPresentazione = 1
-            pesoCottura = 1
-            pesoMpQuality = 3
-            pesoSucculenza = 2.5
-            pesoGusto = 2.5
-            
-        default:
-            
-            pesoPresentazione = 1.5
-            pesoCottura = 0.0
-            pesoMpQuality = 3.0
-            pesoSucculenza = 2.75
-            pesoGusto = 2.75
-        }
-        
-        self.presentazione = 10.0
-        self.cottura = 10.0
-        self.mpQuality = 10.0
-        self.succulenza = 10.0
-        self.gusto = 10.0
-        
-    }
     
-   
-}
+} */ // 08.02.23 Ricollocata in MyFoodiePackage
+
+

@@ -40,13 +40,12 @@ struct ModuloRecensione: View {
     }
     
     @State private var titolo:String = ""
-    @State private var openDescription:Bool?
-
-   // @State private var rateModel:RateModel = RateModel() // Temporaneo.. andrà inglobato nel dishratingModel
-    
-    //Pick Image
-    @State private var pickerSource:PickerSourceType?
+    @State private var commento:String = ""
     @State private var pickedImage:UIImage?
+    
+    @State private var openDescription:Bool? // ??
+    @State private var pickerSource:PickerSourceType?
+   
   //  @State private var showSheet:Bool = false
     
     var body: some View {
@@ -123,7 +122,7 @@ struct ModuloRecensione: View {
            
             if let description = self.newReview.commento {
                 
-                if description.count < 70 { return "\n• Articola con più parole la tua opinione "}
+                if description.count < ReviewModel.minLenghtComment { return "\n• Articola con più parole il commento "}
                 else { return nil }
                 
             } else {
@@ -324,8 +323,10 @@ struct ModuloRecensione: View {
                 CSTextField_4b(
                     textFieldItem: $titolo,
                     placeHolder: "dai un titolo alla Recensione",
-                    showDelete: true) {
+                    showDelete: false) {
                         Image(systemName: "square.and.pencil")
+                            .imageScale(.medium)
+                            .foregroundColor(self.titolo.count > 3 ? .green : .gray)
                             .padding(.leading,5)
                     }
                     .onSubmit {
@@ -337,8 +338,9 @@ struct ModuloRecensione: View {
             } else {
                 
                 Text(self.newReview.titolo!)
-              //  Text("Amazing !!")
-                    .fontWeight(.semibold)
+                   // .fontWeight(.semibold)
+                    .fontWeight(.light)
+                    .foregroundColor(Color.black)
                     .padding(5)
                     .background {
                         Color.white
@@ -346,7 +348,13 @@ struct ModuloRecensione: View {
                             .opacity(0.1)
                            
                     }
-                    .onLongPressGesture {
+                   /* .onLongPressGesture {
+                        withAnimation {
+                            self.titolo = self.newReview.titolo!
+                            self.newReview.titolo = nil
+                        }
+                    } */
+                    .onTapGesture(count: 2) {
                         withAnimation {
                             self.titolo = self.newReview.titolo!
                             self.newReview.titolo = nil
@@ -371,45 +379,126 @@ struct ModuloRecensione: View {
         self.titolo = ""
     }
     
+   
+    
     @ViewBuilder private func vbCommento() -> some View {
         
+        let maxLenght:Int = 275
+        let maxLenghtCondition:Bool = commento.count <= maxLenght
+        
         VStack(alignment:.leading,spacing:5) {
-            
-            CSLabel_1Button(
+
+            CSLabel_conVB(
                 placeHolder: "Commento",
                 imageNameOrEmojy: "scribble",
-                imageColor: .black,
-                backgroundColor: .seaTurtle_4
-                
-                 )
+                backgroundColor: .seaTurtle_4) {
+                    
+                    HStack(spacing:10) {
+                        
+                        Spacer()
+                        
+                        if !maxLenghtCondition {
+                            
+                            Image(systemName: "scissors")
+                                .bold()
+                                .imageScale(.medium)
+                                .foregroundColor(.white)
+                                .opacity(0.5)
+                        }
+                    
+                        HStack(spacing:0) {
+                        
+                            Text("\(commento.count)")
+                                .fontWeight(.semibold)
+                                .foregroundColor(maxLenghtCondition ? Color.green : Color.red)
+                            Text("/\(maxLenght)")
+                                .fontWeight(.light)
+                            
+                        }.opacity(self.commento == "" ? 0.2 : 1.0)
+                    }
+                }
 
-                if openDescription ?? false {
-                    
-                  /*  CSTextField_ExpandingBox(itemModel: $newReview, dismissButton: $openDescription, maxDescriptionLenght: 275) */
-                    
-                    CSTextField_CommentReview(
-                        revComment: $newReview,
-                        dismissButton: $openDescription,
-                        maxDescriptionLenght: 275)
+               // if openDescription ?? false {
+            if self.newReview.commento == nil {
+
+                CSTextField_MultiLine(
+                    textFieldItem: $commento,
+                  //  maxDescriptionLenght: 25,
+                    placeHolder: "Scrivi la tua opinione",
+                    lineLimit: 5) {
+                        
+                        csStringCleaner(string: self.commento).count <= 3
+                        
+                    } saveAction: {
+                        
+                        withAnimation {
+                           checkSaveComment(maxLenght: maxLenght)
+                            
+                                
+                        }
+                    }
                     
                 } else {
                     
-                    Text(newReview.commento == nil ? "Premere a lungo per scrivere" : newReview.commento!)
-                        .italic(newReview.commento == nil)
+                    Text(newReview.commento!)
                         .fontWeight(.light)
-                        .onLongPressGesture {
-                            self.openDescription = true
+                        .foregroundColor(Color.black.opacity(0.8))
+                        .padding(5)
+                        .background {
+                            Color.white
+                                .cornerRadius(5.0)
+                                .opacity(0.1)
+                        }
+                      /*  .onLongPressGesture {
+                            
+                            withAnimation {
+                                self.commento = self.newReview.commento!
+                                self.newReview.commento = nil
+                            }
+                        } */
+                        .onTapGesture(count: 2) {
+                            
+                            withAnimation {
+                                self.commento = self.newReview.commento!
+                                self.newReview.commento = nil
+                            }
+                            
                         }
                     
                 }
-                
-                
-                
-                
-            
-            
         }
+    }
+    
+
+    
+    private func checkSaveComment(maxLenght:Int) {
+        // step 1. controlliamo che il commento senza punti a capo e senza spazi abbia almeno tre caratteri validi.
+      //  guard csStringCleaner(string: self.commento).count > 3 else { return }
         
+        let stringPosition:String.Index? = {
+           
+            if self.commento.count >= maxLenght {
+                return self.commento.index(self.commento.startIndex, offsetBy: maxLenght)
+            }
+            else { return nil }
+            
+        }()
+        
+        csHideKeyboard()
+        
+        let cutString:String = {
+            
+            if let index = stringPosition {
+                
+               return String(self.commento.prefix(upTo:index))
+            } else {
+               return self.commento
+            }
+        }()
+        
+        let cleanedString = csStringCleaner(string: cutString)
+        self.newReview.commento = cleanedString
+        self.commento = ""
         
     }
     
@@ -602,130 +691,97 @@ struct SaveButton:View {
     
 }
 
-struct CSTextField_CommentReview: View {
+
+struct CSTextField_MultiLine: View {
    
-  // @EnvironmentObject var viewModel: FoodieViewModel
-   @Binding var revComment: ReviewModel
-   @Binding var dismissButton: Bool?
-   var maxDescriptionLenght: Int
-   
-   @State private var description: String
-   
-   @State private var isEditorActive: Bool = false
-   @State private var isTextChanged: Bool = false
-  
-   init(
-    revComment: Binding<ReviewModel>,
-    dismissButton: Binding<Bool?>,
-    maxDescriptionLenght: Int = 300) {
+   @Binding var textFieldItem: String
+ //  let maxDescriptionLenght: Int
+   let placeHolder:String
+   let lineLimit:Int
+    
+   let disableCondition: Bool
+   let saveAction:() -> Void
+    
+   public init(
+    textFieldItem:Binding<String>,
+  //  maxDescriptionLenght: Int = 300,
+    placeHolder: String,
+    lineLimit: Int = 5,
+    disableCondition:() -> Bool,
+    saveAction: @escaping () -> Void) {
        
-     //  _itemModel = itemModel
-        _revComment = revComment
-       _dismissButton = dismissButton
-       let newDescription = revComment.commento.wrappedValue ?? ""
-       _description = State(wrappedValue: newDescription)
-       self.maxDescriptionLenght = maxDescriptionLenght
-   }
-   
+        _textFieldItem = textFieldItem
+      //  self.maxDescriptionLenght = maxDescriptionLenght
+        self.placeHolder = placeHolder
+        self.lineLimit = lineLimit
+        self.disableCondition = disableCondition()
+        self.saveAction = saveAction
+    }
+
   public var body: some View {
   
-           VStack {
+      VStack(alignment:.trailing) {
                         
-               TextField("Articola la tua valutazione", text: $description, axis: .vertical)
+               TextField(placeHolder, text: $textFieldItem, axis: .vertical)
                    .font(.system(.body,design:.rounded))
-                   .foregroundColor(isEditorActive ? Color.white : Color.black)
                    .autocapitalization(.sentences)
                    .disableAutocorrection(true)
                    .keyboardType(.default)
-                   .lineLimit(0...5)
-                   .padding()
-                   .background(Color.white.opacity(isEditorActive ? 0.2 : 0.05))
-                   .cornerRadius(5.0)
-                   .overlay(alignment: .trailing) {
-                       CSButton_image(frontImage: "x.circle.fill", imageScale: .medium, frontColor: Color.white) { cancelAction() }
-                       .opacity(description == "" ? 0.6 : 1.0)
-                       .disabled(description == "")
-                       .padding(.trailing)
-                   }
-                   .onTapGesture {
-                       
-                       withAnimation {
-                           isEditorActive = true
-                       }
-                       
-                   }
-                   .onChange(of: description) { newValue in
-                       
-                       if newValue != revComment.commento {
-                           isTextChanged = true }
-                       else { isTextChanged = false}
-                       }
-               
-               if isEditorActive {
-                       
-                       HStack {
-                               CSButton_tight(
-                                   title: "Undo",
-                                   fontWeight: .heavy,
-                                   titleColor: .red,
-                                   fillColor: .clear) {
-                                       
-                                       withAnimation {
-                                           self.description = revComment.commento ?? ""
-                                       }
-                                   }
-                         
-                           Spacer()
-                           
-                           HStack(spacing:0) {
-                               
-                               Text("\(description.count)")
-                                   .fontWeight(.semibold)
-                                   .foregroundColor(description.count <= maxDescriptionLenght ? Color.blue : Color.red)
-                               Text("/\(maxDescriptionLenght)")
-                                   .fontWeight(.light)
-                               
+                   .lineLimit(0...lineLimit)
+                   .foregroundColor(.black)
+                   ._tightPadding()
+                   .accentColor(.white)
+                   .background(
+                    Color.gray
+                        .cornerRadius(5.0)
+                        .opacity(self.textFieldItem == "" ? 0.2 : 0.6)
+                   )
+                  // .disabled(self.textFieldItem.count == self.maxDescriptionLenght)
+                /*   .overlay(alignment: .trailing) {
+                    
+                           CSButton_image(frontImage: "x.circle", imageScale: .medium, frontColor: Color.white) {
+
+                               self.textFieldItem = ""
                            }
-                           
-                           CSButton_tight(
-                               title: "Salva",
-                               fontWeight: .heavy,
-                               titleColor: .green,
-                               fillColor: .clear) {
-
-                                   self.saveAction()
-                                  /* self.isEditorActive = false
-                                   csHideKeyboard()
-                                   self.itemModel.descrizione = description */
-                                 //  self.dismissButton.toggle()
-                                   
-                               }
+                           .opacity(textFieldItem == "" ? 0.3 : 1.0)
+                           .disabled(textFieldItem == "")
+                           .padding(.trailing)
+ 
+                   } */
+                   .onChange(of: self.textFieldItem) { newValue in
+                       if newValue.count == 0 {
+                         //  DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                               csHideKeyboard()
+                         //  }
                        }
-                       .opacity(isTextChanged ? 1.0 : 0.6)
-                       .disabled(!isTextChanged)
-                   
                    }
-
+                 
+               if !disableCondition {
+                   
+                   CSButton_image(
+                    frontImage: "checkmark",
+                    imageScale: .large,
+                    frontColor: Color.seaTurtle_1.opacity(0.8)) {
+                       
+                       self.saveAction()
+                   }
+                    .padding(.horizontal)
+                    .padding(.vertical,3)
+                    .background {
+                        
+                        Color.seaTurtle_3
+                            .cornerRadius(5.0)
+                            .opacity(0.9)
+                        }
+                   // .disabled(disableCondition)
+                   
+                    }
                }
        }
    
    // Method
-   
-  /* private func saveText() {
-       
-       self.isEditorActive = false
-       csHideKeyboard()
-
-       viewModel.updateItemModel(messaggio: "Test") { () -> M in
-           
-           var varianteProperty = itemModel
-           varianteProperty.descrizione = description
-           return varianteProperty
-       }
-  
-   } */ // Salvataggio spostato nella View MAdre in data 27.06
-   
-   private func saveAction() {
+      
+ /*  private func saveAction() {
        
        self.isEditorActive = false
        csHideKeyboard()
@@ -734,11 +790,6 @@ struct CSTextField_CommentReview: View {
        self.revComment.commento = commento
        self.dismissButton = false
            
-       
-      // self.itemModel.descrizione = newDescription
-      // self.dismissButton = false
-       //
-      // self.itemModel.descrizione = description
       
    }
    
@@ -747,13 +798,13 @@ struct CSTextField_CommentReview: View {
     //   csHideKeyboard()
        
        withAnimation {
-        //   self.isEditorActive = false
-         //  self.showPlaceHolder = itemModel.descrizione == ""
-         //  self.description = itemModel.descrizione
+
            self.description = ""
        
        }
        
-   }
+   } */
    
 }
+
+

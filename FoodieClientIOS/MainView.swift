@@ -9,8 +9,6 @@ import SwiftUI
 import MyPackView_L0
 import MyFoodiePackage
 
-
-
 struct MainView: View {
     
     @StateObject var viewModel:ClientVM = ClientVM()
