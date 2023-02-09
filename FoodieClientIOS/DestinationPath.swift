@@ -35,10 +35,3 @@ public enum DestinationPathView:Hashable {
     }
 }
 
-/*
-enum DestinationPath {
-   
-   case scanView
-   case propertyList
-   
-} */
