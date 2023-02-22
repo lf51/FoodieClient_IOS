@@ -40,10 +40,19 @@ struct QRScanView:View {
                  
              }()
             
+           /* let mapTree = MapTree(
+                mapProperties: self.viewModel.allMyCategories,
+                kpPropertyInObject: \DishModel.categoriaMenu,
+                labelColor: .seaTurtle_2) */
+            
             let mapTree = MapTree(
                 mapProperties: self.viewModel.allMyCategories,
                 kpPropertyInObject: \DishModel.categoriaMenu,
-                labelColor: .seaTurtle_2)
+                labelColor: .seaTurtle_2,
+                labelText: .seaTurtle_1,
+                textSizeAsScreenPercentage: 0.125,
+                labelOpacity: 0.8,
+                extendedVersion: true)
           
                 FiltrableContainerView(
                 backgroundColorView: .seaTurtle_1,
