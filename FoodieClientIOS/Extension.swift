@@ -45,7 +45,7 @@ extension DishModel:Object_FPC {
         let allINGChecked = allINGMapped.filter({$0.contains(ricerca)})
         let conditionTwo = !allINGChecked.isEmpty
         //Third - Allergens
-        let allINGbyAllergens = allIngredients.map({$0.allergeni}).joined()
+        let allINGbyAllergens = allIngredients.compactMap({$0.allergeni}).joined()// allIngredients.map({$0.allergeni}).joined()
         let allAllergens = allINGbyAllergens.map({$0.intestazione.lowercased()})
         let allergensChecked = allAllergens.filter({$0.contains(ricerca)})
         let conditionThird = !allergensChecked.isEmpty

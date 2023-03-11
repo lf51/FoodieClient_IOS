@@ -27,13 +27,14 @@ enum PickerSourceType:Identifiable {
 
 struct ModuloRecensione: View {
 
-    @State private var newReview:ReviewModel
+    @State private var newReview:DishRatingModel
     let dishName:String
     let backgroundColorView:Color
     
     init(rifDish:String,dishName:String,percorsoDish:DishModel.PercorsoProdotto,backgroundColorView:Color) {
         
-        let newRev = ReviewModel(rifDish: rifDish, percorsoProdotto: percorsoDish)
+        //let newRev = ReviewModel(rifDish: rifDish, percorsoProdotto: percorsoDish)
+        let newRev = DishRatingModel(idPiatto: rifDish, percorsoProdotto: percorsoDish)
         _newReview = State(wrappedValue: newRev)
         self.dishName = dishName
         self.backgroundColorView = backgroundColorView
@@ -122,7 +123,7 @@ struct ModuloRecensione: View {
            
             if let description = self.newReview.commento {
                 
-                if description.count < ReviewModel.minLenghtComment { return "\n• Articola con più parole il commento "}
+                if description.count < DishRatingModel.minLenghtComment { return "\n• Articola con più parole il commento "}
                 else { return nil }
                 
             } else {
@@ -469,8 +470,6 @@ struct ModuloRecensione: View {
         }
     }
     
-
-    
     private func checkSaveComment(maxLenght:Int) {
         // step 1. controlliamo che il commento senza punti a capo e senza spazi abbia almeno tre caratteri validi.
       //  guard csStringCleaner(string: self.commento).count > 3 else { return }
@@ -639,7 +638,7 @@ struct CSPickerImageView:View {
 
 struct SaveButton:View {
     
-    @Binding var review:ReviewModel
+    @Binding var review:DishRatingModel
     
     let description: () -> Text
     let checkPreliminare: () -> Bool

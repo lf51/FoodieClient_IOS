@@ -290,7 +290,7 @@ public final class ClientVM: FoodieViewModel {
             self.allMyReviews.append(contentsOf: cloudData?.allMyReviews ?? [])
             self.allMyCategories.append(contentsOf: cloudData?.allMyCategories ?? [])
             
-            self.cloudData = cloudData // fa aggiornare una published
+          // self.cloudData = cloudData // fa aggiornare una published
            
             self.salvareDataOnUserDefault(cloudData: cloudData)
            

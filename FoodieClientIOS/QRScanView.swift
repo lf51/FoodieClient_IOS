@@ -35,8 +35,8 @@ struct QRScanView:View {
             let container:[DishModel] = self.viewModel.ricercaFiltra(containerPath: \.allMyDish, coreFilter: filterCore)
             let cloudDataCreated:Bool = {
                 
-                 self.viewModel.cloudDataCompiler != nil &&
-                 self.viewModel.cloudData != nil
+                 self.viewModel.cloudDataCompiler != nil //&&
+               //  self.viewModel.cloudData != nil
                  
              }()
             
@@ -64,6 +64,10 @@ struct QRScanView:View {
                 elementContainer: container,
                 mapTree: mapTree, // NOTA 24.01 MAPTREE
                 generalDisable: !cloudDataCreated,
+                onChangeValue: self.viewModel.menuPath,
+                onChangeProxyControl:  { proxy in
+                    proxy.scrollTo(0,anchor: .top)
+                },
                // mapButtonAction: { thirdButtonAction() },
                 //mapButtonAction: nil,
                 trailingView: { vbTrailingBar(cloudDataCreated) },
@@ -378,8 +382,8 @@ struct QRScanView:View {
         
         let cloudDataCreated:Bool = {
            
-            self.viewModel.cloudDataCompiler != nil &&
-            self.viewModel.cloudData != nil
+            self.viewModel.cloudDataCompiler != nil// &&
+           // self.viewModel.cloudData != nil
             
         }()
         
@@ -418,7 +422,8 @@ struct QRScanView:View {
 
 struct QRScanView_Previews: PreviewProvider {
     static var previews: some View {
-        QRScanView(backgroundColorView:.seaTurtle_1)
-            .environmentObject(testAccount)
+      //  Text("Ciao")
+       QRScanView(backgroundColorView:.seaTurtle_1)
+           .environmentObject(testAccount)
     }
 }

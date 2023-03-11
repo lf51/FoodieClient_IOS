@@ -26,6 +26,7 @@
 		3FBEACB4298D24AF001882C0 /* CSPickerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBEACB3298D24AF001882C0 /* CSPickerImage.swift */; };
 		3FC4A53E297199C700C0E795 /* DishRatingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC4A53D297199C700C0E795 /* DishRatingListView.swift */; };
 		3FC96158295EF8FB00D0E01A /* MyPackView_L0 in Frameworks */ = {isa = PBXBuildFile; productRef = 3FC96157295EF8FB00D0E01A /* MyPackView_L0 */; };
+		3FCD464529A6701400E357CD /* TestVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCD464429A6701400E357CD /* TestVM.swift */; };
 		3FD854042941EFF700F7CC98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */; };
 		3FD854072941F0A700F7CC98 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD854062941F0A700F7CC98 /* FirebaseAuth */; };
 		3FD854092941F0A700F7CC98 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 3FD854082941F0A700F7CC98 /* FirebaseDynamicLinks */; };
@@ -53,6 +54,7 @@
 		3FBD7C97294F5860005A4484 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		3FBEACB3298D24AF001882C0 /* CSPickerImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSPickerImage.swift; sourceTree = "<group>"; };
 		3FC4A53D297199C700C0E795 /* DishRatingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishRatingListView.swift; sourceTree = "<group>"; };
+		3FCD464429A6701400E357CD /* TestVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVM.swift; sourceTree = "<group>"; };
 		3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3FD8540E2941FAE900F7CC98 /* ClientVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientVM.swift; sourceTree = "<group>"; };
 		3FE8080B296ED284001C5CDC /* DestinationPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationPath.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				3FD854032941EFF700F7CC98 /* GoogleService-Info.plist */,
 				3FB42F1D2940AC7A000DD169 /* Preview Content */,
 				3F7E78FF298A84470053EC17 /* RateModel.swift */,
+				3FCD464429A6701400E357CD /* TestVM.swift */,
 			);
 			path = FoodieClientIOS;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				3FBD7C98294F5860005A4484 /* Extension.swift in Sources */,
 				3FB42F342940E7CB000DD169 /* QRScanView.swift in Sources */,
 				3FB42F172940AC79000DD169 /* FoodieClientIOSApp.swift in Sources */,
+				3FCD464529A6701400E357CD /* TestVM.swift in Sources */,
 				3FD8540F2941FAE900F7CC98 /* ClientVM.swift in Sources */,
 				3FE8080C296ED284001C5CDC /* DestinationPath.swift in Sources */,
 				3FA516A42982850E00F913D8 /* TESTRatingRow.swift in Sources */,
