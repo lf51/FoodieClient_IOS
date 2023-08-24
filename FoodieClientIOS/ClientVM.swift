@@ -79,7 +79,6 @@ extension CloudDataStore:Codable {
     
 }
 
-
 struct CloudDataCompiler {
     
     private let db_base = Firestore.firestore()
@@ -106,7 +105,7 @@ struct CloudDataCompiler {
             handle(nil)
             return
         }
-     
+        
         docRef.getDocument(as: CloudDataStore.self) { (result) in
         
             switch result {
@@ -151,80 +150,6 @@ struct CloudDataCompiler {
     }
     
 } // end Struct
-
-
-/*
-public final class ClientVM: MyProViewModelPack_L1 {
-    
-    public var allMyIngredients: [IngredientModel] = []
-    public var allMyDish: [DishModel] = []
-    public var allMyMenu: [MenuModel] = []
-    public var allMyProperties: [PropertyModel] = []
-    public var allMyCategories: [CategoriaMenu] = []
-    public var allMyReviews: [DishRatingModel] = []
-    
-    // 12.12.22 Non usiamo direttamente gli array sopra ma usiamo un dataCloud. Dovremmo trasformare in tal senso anche Foodie Business. Step by Step
-    
-    @Published var cloudData: CloudDataStore?
-    var cloudDataCompiler:CloudDataCompiler?
-    
-    var checkInProperties:[PropertyModel] = []
-    
-    init() {
-        
-        // 1. Caricare dati salvati sullo userDefault. Dati sintetici in stringa per ricostruire data del check-in, luogo, città, ed eventuale recensione. Costruire un dictionary
-        
-    }
-    
-    func salvareDataOnUserDefault(cloudData:CloudDataStore?) {
-        
-        // salva le proprietà visitate sullo userDefault, e anche l'elenco dei piatti ma per 48/72 ore
-        
-        guard let data = cloudData,
-              data.allMyProperties.count < 2
-        else {
-            print("CloudData equal to Nil or properties are more than one")
-            return }
-        
-        print("Scrivere Logica per salvare i dati su UserDefault")
-      //  let userDef = UserDefaults.standard
-        
-        
-        
-       // UserDefaults.standard.
-        
-        
-    }
-    
-    
-    func commpilaCloudDataFromUserDefault() {
-        
-        // Crea una istanza di CloudDataStore con i dati salvati localmente sul device
-       // UserDefaults.standard.dictionaryRepresentation()
-    }
-    
-    func compilaCloudDataFromFirebase() {
-        
-        guard let compiler = self.cloudDataCompiler else { return }
-        
-        compiler.compilaCloudDataFromFirebase { cloudData in
-            
-            self.checkInProperties.append(contentsOf: cloudData?.allMyProperties ?? [])
-            self.allMyDish.append(contentsOf: cloudData?.allMyDish ?? [])
-            self.allMyIngredients.append(contentsOf: cloudData?.allMyIngredients ?? [])
-            
-            self.cloudData = cloudData // fa aggiornare una published
-           
-            self.salvareDataOnUserDefault(cloudData: cloudData)
-            print("is allMyDish empty:\(self.allMyDish.isEmpty.description)")
-        }
-        
-        print("ClientVM/compilaCloudDataFromFirebase")
-        
-    }
-    
-    
-} */
 
 public final class ClientVM: FoodieViewModel {
     
@@ -334,41 +259,7 @@ public final class ClientVM: FoodieViewModel {
 }
 
 extension ClientVM: VM_FPC {
- 
-   /* public func filtraRicerca<M:MyProFilter_L0>(containerPath: WritableKeyPath<ClientVM, [M]>, filterCore: FilterPropertyCore<M>) -> [M] where M.VM == ClientVM {
-        
-        let container = self[keyPath: containerPath]
-        
-       /* guard filterCore.properties != nil else {
-            return container } */
-        
-        let filterInTheModel = container.filter({
-            $0.propertyCompare(filterProperty: filterCore, readOnlyVM: self)
-        })
-        
-        guard let sortCond = filterCore.conditions else {
-            return filterInTheModel }
-        
-        let sortedInTheModel = filterInTheModel.sorted{
-            M.sortModelInstance(lhs: $0, rhs: $1, condition: sortCond,readOnlyVM: self)
-        }
-        return sortedInTheModel
-    } */
-    
-   /* public func ricercaFiltra<M:Object_FPC>(containerPath: WritableKeyPath<ClientVM, [M]>, filterProperties: M.FilterProperty) -> [M] where ClientVM == M.VM, M.SortCondition == M.FilterProperty.M.SortCondition {
-        
-        let container = self[keyPath: containerPath]
-        
-        let containerFirstFilter = container.filter({ $0.propertyCompare(filterProperties: filterProperties, readOnlyVM: self) })
-        
-        let containerSecondSort = containerFirstFilter.sorted {
-            
-            M.sortModelInstance(lhs: $0, rhs: $1, condition: filterProperties.sortCondition, readOnlyVM: self)
-        }
-        return containerSecondSort
-        
-    } */
-    
+     
     public func ricercaFiltra<M:Object_FPC>(
         containerPath: WritableKeyPath<ClientVM, [M]>,
         coreFilter: CoreFilter<M>) -> [M] where ClientVM == M.VM {
